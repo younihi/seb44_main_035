@@ -1,6 +1,7 @@
 package com.server.server.domain.config.security;
 
 import com.server.server.domain.oauth.token.AuthTokenProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -10,20 +10,28 @@ import com.server.server.domain.oauth.info.OAuth2UserInfoFactory;
 import com.server.server.domain.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.server.server.domain.oauth.token.AuthToken;
 import com.server.server.domain.oauth.token.AuthTokenProvider;
+import com.server.server.domain.utils.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
+
+import static com.server.server.domain.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.server.server.domain.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REFRESH_TOKEN;
 
 @Component
 @RequiredArgsConstructor

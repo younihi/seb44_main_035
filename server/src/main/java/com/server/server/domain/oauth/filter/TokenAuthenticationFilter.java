@@ -2,8 +2,10 @@ package com.server.server.domain.oauth.filter;
 
 import com.server.server.domain.oauth.token.AuthToken;
 import com.server.server.domain.oauth.token.AuthTokenProvider;
+import com.server.server.domain.utils.HeaderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -34,5 +36,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
 }
 

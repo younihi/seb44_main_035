@@ -6,8 +6,12 @@ import com.server.server.domain.api.repository.user.UserRefreshTokenRepository;
 import com.server.server.domain.common.ApiResponse;
 import com.server.server.domain.config.properties.AppProperties;
 import com.server.server.domain.oauth.entity.RoleType;
+import com.server.server.domain.oauth.entity.UserPrincipal;
 import com.server.server.domain.oauth.token.AuthToken;
 import com.server.server.domain.oauth.token.AuthTokenProvider;
+import com.server.server.domain.utils.CookieUtil;
+import com.server.server.domain.utils.HeaderUtil;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,8 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/v1/auth")
