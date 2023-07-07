@@ -10,7 +10,7 @@ public class CommentDto {
     }
 
     public static class Response {
-        private long memberId;
+        private long userId;
         private long recipeId;
         private long commentId;
         private String commentContent;

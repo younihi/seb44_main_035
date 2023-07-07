@@ -1,6 +1,6 @@
 package com.server.server.domain.comment.entity;
 
-import com.server.server.domain.member.entity.Member;
+import com.server.server.domain.user.entity.User;
 import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.global.audit.Auditable;
 
@@ -15,8 +15,8 @@ public class Comment extends Auditable {
     private String commentContent;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;

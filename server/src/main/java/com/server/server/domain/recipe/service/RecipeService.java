@@ -1,7 +1,8 @@
 package com.server.server.domain.recipe.service;
 
-import com.server.server.domain.member.entity.Member;
-import com.server.server.domain.member.service.MemberService;
+import com.server.server.domain.recommend.service.RecommendService;
+import com.server.server.domain.user.entity.User;
+import com.server.server.domain.user.service.UserService;
 import com.server.server.domain.recipe.dto.RecipeDto;
 import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.domain.recipe.repository.RecipeRepository;
@@ -19,8 +20,9 @@ import java.util.Optional;
 @Service
 public class RecipeService {
     private final RecipeRepository recipeRepository;
-    private final MemberService memberService;
+    private final UserService userService;
     private final RecommendRepository recommendRepository;
+    private final RecommendService recommendService;
 
     public Recipe createRecipe(Recipe recipe) {
         Recipe savedRecipe = recipeRepository.save(recipe);
@@ -28,35 +30,32 @@ public class RecipeService {
         return savedRecipe;
     }
 
-    public RecipeDto.RecommendResponse toggleRecipeRecommend(long memberId, long recipeId) {
-        Member member = memberService.findMember(memberId);
+    public RecipeDto.RecommendResponse toggleRecipeRecommend(long userId, long recipeId) {
+        User user = userService.findUser(userId);
         Recipe recipe = findRecipe(recipeId);
         List<Recommend> recommends = recipe.getRecommendList();
 
         Optional<Recommend> optionalRecommend = recommends.stream()
-                .filter(recommend -> recommend.getMember().getMemberId().equals(memberId))
+                .filter(recommend -> recommend.getUser().getUserId().equals(userId))
                 .findFirst();
         RecipeDto.RecommendResponse response = new RecipeDto.RecommendResponse();
-        response.setMemberId(memberId);
+        response.setUserId(userId);
         response.setRecipeId(recipeId);
 
         if (optionalRecommend.isPresent()) {
             Recommend recommend = optionalRecommend.get();
 
-            recipe.removeRecommend(recommend);
-
-
-            // ** 맴버와 레시피 안에 있는 recommend를 지우기
+            recommendService.deleteRecommend(userId, recipeId);
 
             recommendRepository.delete(recommend);
 
             response.setMessage("좋아요가 취소되었습니다.");
         } else {
-            Recommend recommend = new Recommend(member, recipe);
+            Recommend recommend = new Recommend(user, recipe);
             recipe.addRecommend(recommend);
             Recommend savedRecommend = recommendRepository.save(recommend);
 
-            // ** 맴버와 레시피에 recommend 추가
+            recommendService.createRecommend(userId, recipeId);
 
             response.setRecommendId(savedRecommend.getRecommendId());
             response.setMessage("좋아요가 생성되었습니다.");

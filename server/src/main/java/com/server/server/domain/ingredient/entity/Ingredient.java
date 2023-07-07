@@ -1,6 +1,6 @@
 package com.server.server.domain.ingredient.entity;
 
-import com.server.server.domain.member.entity.Member;
+import com.server.server.domain.user.entity.User;
 import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.global.audit.Auditable;
 
@@ -17,5 +17,7 @@ public class Ingredient extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

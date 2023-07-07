@@ -43,7 +43,7 @@ public class RecipeDto {
     }
     @Setter
     public static class RecommendResponse {
-        private long memberId;
+        private long userId;
         private long recipeId;
         private long recommendId;
         private String message;

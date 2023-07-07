@@ -28,10 +28,10 @@ public class RecipeController {
     }
 
     //    @PostMapping("recipes/recommend/{recipe-id}")
-    @PostMapping("recipes/recommend/{recipe-id}/{member-id}")
+    @PostMapping("recipes/recommend/{recipe-id}/{user-id}")
     public ResponseEntity toggleRecipeRecommend(@PathVariable("recipe-id") long recipeId,
-                                                @PathVariable("member-id") long memberId) {    //레시피 추천(토글 형식)
-        RecipeDto.RecommendResponse response = recipeService.toggleRecipeRecommend(memberId, recipeId);
+                                                @PathVariable("user-id") long userId) {    //레시피 추천(토글 형식)
+        RecipeDto.RecommendResponse response = recipeService.toggleRecipeRecommend(userId, recipeId);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }

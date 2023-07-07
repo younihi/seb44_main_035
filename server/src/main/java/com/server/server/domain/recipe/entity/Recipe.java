@@ -2,14 +2,18 @@ package com.server.server.domain.recipe.entity;
 
 import com.server.server.domain.comment.entity.Comment;
 import com.server.server.domain.ingredient.entity.Ingredient;
-import com.server.server.domain.member.entity.Member;
+import com.server.server.domain.user.entity.User;
 import com.server.server.domain.recommend.entity.Recommend;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
 public class Recipe {
@@ -22,15 +26,16 @@ public class Recipe {
     private String recipeImage;
     @Column
     private String recipeIntro;
-    @Column
+    @ElementCollection
+    @CollectionTable(name = "recipe_cook_step", joinColumns = @JoinColumn(name = "recipe_id"))
+    @Column(name = "cook_step_content")
     private List<String> cookStepContent;
-    @Column
+    @ElementCollection
+    @CollectionTable(name = "recipe_cook_step_image", joinColumns = @JoinColumn(name = "recipe_id"))
+    @Column(name = "cook_step_image")
     private List<String> cookStepImage;
     @Column
     private int views = 0;
-    @Column
-    private int recommendCount = this.recommendList.size();
-
     @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL})
     private List<Recommend> recommendList = new ArrayList<>();
     @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL})
@@ -38,8 +43,11 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL})
     private List<Ingredient> ingredientList = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column
+    private int recommendCount = this.recommendList.size();
 
     public void removeRecommend(Recommend recommend) {
         this.recommendList.remove(recommend);

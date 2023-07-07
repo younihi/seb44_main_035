@@ -3,6 +3,7 @@ package com.server.server.domain.recipe.mapper;
 import com.server.server.domain.recipe.dto.RecipeDto;
 import com.server.server.domain.recipe.entity.Recipe;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
