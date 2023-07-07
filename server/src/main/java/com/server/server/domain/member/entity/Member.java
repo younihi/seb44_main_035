@@ -1,9 +1,9 @@
 package com.server.server.domain.member.entity;
 
 import com.server.server.domain.comment.entity.Comment;
+import com.server.server.domain.recipe.entity.Recipe;
+import com.server.server.domain.recommend.entity.Recommend;
 import com.server.server.global.audit.Auditable;
-import com.server.server.domain.Recipe.entity.Recipe;
-import com.server.server.domain.like.entity.RecipeLike;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -50,7 +50,7 @@ public class Member extends Auditable {
     @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private List<RecipeLike> recipeLikeList = new ArrayList<>();
+    private List<Recommend> recommendList = new ArrayList<>();
 
     @JsonIgnore
     @Builder.Default

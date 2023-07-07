@@ -1,4 +1,7 @@
 package com.server.server.domain.recipe.repository;
 
-public class RecipeRepository {
+import com.server.server.domain.recipe.entity.Recipe;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 }

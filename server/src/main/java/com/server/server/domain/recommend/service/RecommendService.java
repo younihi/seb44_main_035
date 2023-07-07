@@ -1,4 +1,4 @@
 package com.server.server.domain.recommend.service;
 
-public class ResipeService {
+public class RecommendService {
 }

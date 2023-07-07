@@ -1,6 +1,7 @@
 package com.server.server.domain.recipe.dto;
 
 import com.server.server.domain.comment.entity.Comment;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -14,7 +15,6 @@ public class RecipeDto {
     }
 
     public static class Patch {
-        private String recipeId;
         private String recipeName;
         private String recipeImage;
         private String recipeIntro;
@@ -34,11 +34,18 @@ public class RecipeDto {
         private List<Comment> comments;
     }
 
-    public static class ResponseList {
+    public static class ListResponse {
         private long recipeId;
         private String recipeName;
         private String recipeImage;
         private int views;
         private int recommendCount;
+    }
+    @Setter
+    public static class RecommendResponse {
+        private long memberId;
+        private long recipeId;
+        private long recommendId;
+        private String message;
     }
 }

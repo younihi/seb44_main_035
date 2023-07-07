@@ -1,4 +1,6 @@
 package com.server.server.domain.ingredient.mapper;
+import org.mapstruct.Mapper;
 
-public class IngredientMapper {
+@Mapper(componentModel = "spring")
+public interface IngredientMapper {
 }
