@@ -10,43 +10,36 @@ import com.server.server.global.exception.BusinessLogicException;
 import com.server.server.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class RecommendService {
-    private final UserService userService;
-    private final RecipeService recipeService;
     private final RecommendRepository recommendRepository;
-    public void createRecommend(long userId, long recipeId) {
-
-        User findUser = userService.findUser(userId);
-        Recipe findRecipe = recipeService.findRecipe(recipeId);
-
-        Recommend recommend = new Recommend();
-        recommend.setUser(findUser);
-        recommend.setRecipe(findRecipe);
-
-        findUser.addRecommend(recommend);
-        findRecipe.addRecommend(recommend);
-
-        recommendRepository.save(recommend);
-    }
-    public void deleteRecommend(long userId, long recipeId ){
+//    public void createRecommend(User user, Recipe recipe, long userId, long recipeId) {
+//        Recommend recommend = new Recommend();
+//        recommend.setUser(user);
+//        recommend.setRecipe(recipe);
+//
+//        user.addRecommend(recommend);
+//        recipe.addRecommend(recommend);
+//
+//        recommendRepository.save(recommend);
+//    }
+    public void deleteRecommend(User user, Recipe recipe,long userId, long recipeId ){
         Recommend findRecommend = findVerifiedRecommend(userId, recipeId);
-        User findUser = userService.findUser(userId);
-        Recipe findRecipe = recipeService.findRecipe(recipeId);
 
-        findUser.removeRecommend(findRecommend);
-        findRecipe.removeRecommend(findRecommend);
+        user.removeRecommend(findRecommend);
+        recipe.removeRecommend(findRecommend);
 
-        recommendRepository.delete(findRecommend);
 
     }
 
     public Recommend findVerifiedRecommend(long userId, long recipeId) {
-        Optional<Recommend> optionalRecommend = recommendRepository.findByUserIdAndRecipeId(userId, recipeId);
+        Optional<Recommend> optionalRecommend = recommendRepository.findByUserUserIdAndRecipeRecipeId(userId, recipeId);
 
         return optionalRecommend.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.RECOMMEND_NOT_FOUND));

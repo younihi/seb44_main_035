@@ -4,7 +4,9 @@ import com.server.server.domain.comment.entity.Comment;
 import com.server.server.domain.ingredient.entity.Ingredient;
 import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.domain.recommend.entity.Recommend;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,13 +15,17 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+    @Column
     private String email;
+    @Column
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
