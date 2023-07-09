@@ -30,6 +30,26 @@ public class RecipeService {
         return savedRecipe;
     }
 
+    public Recipe updateRecipe(Recipe recipe) {
+        Recipe findRecipe = findRecipe(recipe.getRecipeId());
+
+        Optional.ofNullable(recipe.getRecipeName())
+                .ifPresent(name -> findRecipe.setRecipeName(name));
+        Optional.ofNullable(recipe.getRecipeImage())
+                .ifPresent(image -> findRecipe.setRecipeImage(image));
+        Optional.ofNullable(recipe.getRecipeIntro())
+                .ifPresent(intro -> findRecipe.setRecipeIntro(intro));
+        if (recipe.getCookStepContent().size() != 0) {
+            findRecipe.setCookStepContent(recipe.getCookStepContent());
+        }
+        if (recipe.getCookStepImage().size() != 0) {
+            findRecipe.setCookStepImage(recipe.getCookStepImage());
+        }
+
+        return recipeRepository.save(findRecipe);
+
+    }
+
     public RecipeDto.RecommendResponse toggleRecipeRecommend(long userId, long recipeId) {
         User user = userService.findUser(userId);
         Recipe recipe = findRecipe(recipeId);
@@ -45,7 +65,7 @@ public class RecipeService {
         if (optionalRecommend.isPresent()) {
             Recommend recommend = optionalRecommend.get();
 
-            recommendService.deleteRecommend(userId, recipeId);
+            recommendService.deleteRecommend(user, recipe, userId, recipeId);
 
             recommendRepository.delete(recommend);
 
@@ -53,9 +73,8 @@ public class RecipeService {
         } else {
             Recommend recommend = new Recommend(user, recipe);
             recipe.addRecommend(recommend);
+            user.addRecommend(recommend);
             Recommend savedRecommend = recommendRepository.save(recommend);
-
-            recommendService.createRecommend(userId, recipeId);
 
             response.setRecommendId(savedRecommend.getRecommendId());
             response.setMessage("좋아요가 생성되었습니다.");

@@ -7,6 +7,7 @@ import com.server.server.domain.recommend.entity.Recommend;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity
 public class Recipe {
     @Id
@@ -29,11 +31,11 @@ public class Recipe {
     @ElementCollection
     @CollectionTable(name = "recipe_cook_step", joinColumns = @JoinColumn(name = "recipe_id"))
     @Column(name = "cook_step_content")
-    private List<String> cookStepContent;
+    private List<String> cookStepContent = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "recipe_cook_step_image", joinColumns = @JoinColumn(name = "recipe_id"))
     @Column(name = "cook_step_image")
-    private List<String> cookStepImage;
+    private List<String> cookStepImage = new ArrayList<>();
     @Column
     private int views = 0;
     @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL})

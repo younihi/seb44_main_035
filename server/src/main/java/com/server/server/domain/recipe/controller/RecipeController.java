@@ -6,6 +6,7 @@ import com.server.server.domain.recipe.mapper.RecipeMapper;
 import com.server.server.domain.recipe.service.RecipeService;
 import com.server.server.global.response.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,21 +25,29 @@ public class RecipeController {
         Recipe recipe = recipeMapper.postToRecipe(requestBody);
         Recipe savedRecipe = recipeService.createRecipe(recipe);
 
-        return new ResponseEntity<>(new SingleResponseDto(savedRecipe), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto(recipeMapper.recipeToPostResponse(savedRecipe)), HttpStatus.CREATED);
     }
 
-    //    @PostMapping("recipes/recommend/{recipe-id}")
-    @PostMapping("recipes/recommend/{recipe-id}/{user-id}")
+    @PostMapping("/recommend/{recipe-id}/{user-id}")
     public ResponseEntity toggleRecipeRecommend(@PathVariable("recipe-id") long recipeId,
                                                 @PathVariable("user-id") long userId) {    //레시피 추천(토글 형식)
         RecipeDto.RecommendResponse response = recipeService.toggleRecipeRecommend(userId, recipeId);
-
-        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+        if (response.getRecommendId() != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } else {
+            return ResponseEntity.ok(response);
+        }
     }
 
     @PatchMapping("/update/{recipe-id}")
-    public ResponseEntity patchRecipe() {   //레시피 수정
-        return null;
+    public ResponseEntity patchRecipe(@PathVariable("recipe-id") long recipeId,
+                                      @RequestBody RecipeDto.Patch requestBody) {   //레시피 수정
+        requestBody.setRecipeId(recipeId);
+        Recipe recipe = recipeMapper.patchToRecipe(requestBody);
+        Recipe updatedRecipe = recipeService.updateRecipe(recipe);
+        return new ResponseEntity
+                (new SingleResponseDto<>(recipeMapper.recipeToResponse(updatedRecipe))
+                        ,HttpStatus.OK);
     }
 
     @GetMapping("/find/{recipe-id}")
