@@ -83,6 +83,9 @@ public class RecipeService {
         return response;
     }
 
+    public void deleteRecipe(long recipeId) {
+        recipeRepository.delete(findRecipe(recipeId));
+    }
     public Recipe findRecipe(long recipeId) {
         return findVerifiedRecipe(recipeId);
     }
