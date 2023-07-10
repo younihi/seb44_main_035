@@ -5,65 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e3127af-cf73-431e-ac55-5509eb26c7c1" name="Changes" comment="gitIgnore 파일 생성">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/checksums/md5-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/dependencies-accessors/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/file-system.probe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/modules/server.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/bootJarMainClassName" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/ServerApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/domain/member/entity/Member.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/advice/GlobalExceptionAdvice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/audit/Auditable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/exception/BusinessLogicException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/exception/ExceptionCode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/response/ErrorResponse$ConstraintViolationError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/response/ErrorResponse$FieldError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/response/ErrorResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/response/MultiResponseDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/response/PageInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/response/SingleResponseDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/com/server/server/global/utils/UriCreator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/test/com/server/server/ServerApplicationTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/libs/server-0.0.1-SNAPSHOT-plain.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/libs/server-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/reports/tests/test/classes/com.server.server.ServerApplicationTests.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/reports/tests/test/css/base-style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/reports/tests/test/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/reports/tests/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/reports/tests/test/js/report.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/reports/tests/test/packages/com.server.server.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/resources/main/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/test-results/test/TEST-com.server.server.ServerApplicationTests.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/test-results/test/binary/output.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/test-results/test/binary/output.bin.idx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/test-results/test/binary/results.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/tmp/bootJar/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/deploy.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +53,17 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="gradle-wrapper.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/server/gradle/wrapper/gradle-wrapper.jar" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JAR Application.gradle-wrapper.jar" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
