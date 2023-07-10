@@ -45,14 +45,18 @@ public class RecipeController {
         requestBody.setRecipeId(recipeId);
         Recipe recipe = recipeMapper.patchToRecipe(requestBody);
         Recipe updatedRecipe = recipeService.updateRecipe(recipe);
-        return new ResponseEntity
-                (new SingleResponseDto<>(recipeMapper.recipeToResponse(updatedRecipe))
+        return new ResponseEntity(
+                new SingleResponseDto<>(recipeMapper.recipeToResponse(updatedRecipe))
                         ,HttpStatus.OK);
     }
 
     @GetMapping("/find/{recipe-id}")
-    public ResponseEntity getRecipe() {    //레시피 상세 조회
-        return null;
+    public ResponseEntity getRecipe(@PathVariable("recipe-id") long recipeId) {    //레시피 상세 조회
+        Recipe recipe = recipeService.findRecipe(recipeId);
+
+        return new ResponseEntity(
+                new SingleResponseDto<>(recipeMapper.recipeToResponse(recipe))
+                        , HttpStatus.OK);
     }
 
     @GetMapping("/findbyname")
@@ -76,7 +80,8 @@ public class RecipeController {
     }
 
     @DeleteMapping("/delete/{recipe-id}")
-    public ResponseEntity deleteRecipe() {    //레시피 삭제
-        return null;
+    public ResponseEntity deleteRecipe(@PathVariable("recipe-id") long recipeId) {    //레시피 삭제
+        recipeService.deleteRecipe(recipeId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
