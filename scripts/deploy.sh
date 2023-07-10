@@ -1,29 +1,37 @@
 #!/bin/bash
 
-BUILD_JAR=$(ls /home/ubuntu/action/build/libs/server-0.0.1-SNAPSHOT.jar)
-JAR_NAME=$(basename $BUILD_JAR)
+REPOSITORY=/home/ubuntu/action
+PROJECT_NAME=seb44_main_035
 
-echo "> 현재 시간: $(date)" >> /home/ubuntu/action/deploy.log
+cd $REPOSITORY/$PROJECT_NAME/
 
-echo "> build 파일명: $JAR_NAME" >> /home/ubuntu/action/deploy.log
+echo "> Git Pull"
+git pull
 
-echo "> build 파일 복사" >> /home/ubuntu/action/deploy.log
-DEPLOY_PATH=/home/ubuntu/action/
-cp $BUILD_JAR $DEPLOY_PATH
+echo "> project build start"
+./gradlew build
 
-echo "> 현재 실행중인 애플리케이션 pid 확인" >> /home/ubuntu/action/deploy.log
-CURRENT_PID=$(pgrep -f $JAR_NAME)
+echo "> directory로 이동"
+cd $REPOSITORY
 
-if [ -z $CURRENT_PID ]
+echo "> build 파일 복사" 
+cp $REPOSITORY/$PROJECT_NAME/server/build/libs/.jar $REPOSITORY/
+
+echo "> 현재 실행중인 애플리케이션 pid 확인"
+CURRENT_PID=$(pgrep -f ${PROJECT_NAME}..jar)
+
+echo "> 현재 구동중인 애플리케이션 pid: $CURRENT_PID"
+if [ -z "$CURRENT_PID" ];
 then
-  echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다." >> /home/ubuntu/action/deploy.log
+  echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
 else
-  echo "> kill -9 $CURRENT_PID" >> /home/ubuntu/action/deploy.log
-  sudo kill -9 $CURRENT_PID
+  echo "> kill -15 $CURRENT_PID"
+  sudo kill -15 $CURRENT_PID
   sleep 5
 fi
 
+echo "> 새 애플리케이션 배포"
+JAR_NAME=$(ls -tr $REPOSITORY/ | grep jar | tail -n 1)
 
-DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
-echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploy.log
-sudo nohup java -jar $DEPLOY_JAR >> /home/ubuntu/action/deploy.log 2>/home/ubuntu/action/deploy_err.log &
+echo "> Jar Name: $JAR_NAME"
+nohup java -jar $REPOSITORY/$JAR_NAME 2>&1 &
