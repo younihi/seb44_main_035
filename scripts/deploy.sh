@@ -14,8 +14,8 @@ echo "> project build start"
 echo "> directory로 이동"
 cd $REPOSITORY
 
-echo "> build 파일 복사" 
-cp $REPOSITORY/$PROJECT_NAME/build/libs/server-0.0.1-SNAPSHOT.jar $REPOSITORY/
+echo "> build 파일 복사"
+cp $REPOSITORY/$PROJECT_NAME/server/build/libs/server-0.0.1-SNAPSHOT.jar $REPOSITORY/
 
 echo "> 현재 실행중인 애플리케이션 pid 확인"
 CURRENT_PID=$(pgrep -f ${PROJECT_NAME}.*.jar)
