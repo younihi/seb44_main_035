@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOSITORY=/home/ubuntu/action
+REPOSITORY=/home/ubuntu
 PROJECT_NAME=seb44_main_035
 
 cd $REPOSITORY/$PROJECT_NAME/
@@ -21,8 +21,7 @@ echo "> 현재 실행중인 애플리케이션 pid 확인"
 CURRENT_PID=$(pgrep -f ${PROJECT_NAME}..jar)
 
 echo "> 현재 구동중인 애플리케이션 pid: $CURRENT_PID"
-if [ -z "$CURRENT_PID" ];
-then
+if [ -z "$CURRENT_PID" ]; then
   echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
 else
   echo "> kill -15 $CURRENT_PID"
