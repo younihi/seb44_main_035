@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/seb44_main_035
+    destination: /home/ubuntu
     overwrite: yes
 file_exists_behavior: OVERWRITE
 
