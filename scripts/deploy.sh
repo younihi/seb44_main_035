@@ -14,8 +14,8 @@ echo "> project build start"
 echo "> directory로 이동"
 cd $REPOSITORY
 
-echo "> build 파일 복사"
-cp $REPOSITORY/$PROJECT_NAME/build/libs/server-0.0.1-SNAPSHOT.jar $REPOSITORY/
+# echo "> build 파일 복사"
+# cp $REPOSITORY/$PROJECT_NAME/build/libs/server-0.0.1-SNAPSHOT.jar $REPOSITORY/
 
 echo "> 삭제할 파일 확인 및 삭제"
 FILE_TO_DELETE=$REPOSITORY/$PROJECT_NAME/server/gradlew.bat
