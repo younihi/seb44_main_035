@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BUILD_JAR=$(ls /home/ubuntu/seb44_main_035/build/libs/server-0.0.1-SNAPSHOT.jar)
+BUILD_JAR=$(ls /home/ubuntu/seb44_main_035/server/build/libs/server-0.0.1-SNAPSHOT.jar)
 JAR_NAME=$(basename $BUILD_JAR)
 
 echo "> 현재 시간: $(date)" >> /home/ubuntu/seb44_main_035/deploy.log
