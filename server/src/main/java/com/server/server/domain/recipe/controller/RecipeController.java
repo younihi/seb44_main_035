@@ -26,17 +26,19 @@ public class RecipeController {
     private final RecipeMapper recipeMapper;
     private final RecipeService recipeService;
 
+    //레시피 등록
     @PostMapping("/create")
-    public ResponseEntity postRecipe(@RequestBody RecipeDto.Post requestBody) {    //레시피 등록
+    public ResponseEntity postRecipe(@RequestBody RecipeDto.Post requestBody) {
         Recipe recipe = recipeMapper.postToRecipe(requestBody);
         Recipe savedRecipe = recipeService.createRecipe(recipe);
 
         return new ResponseEntity<>(new SingleResponseDto(recipeMapper.recipeToPostResponse(savedRecipe)), HttpStatus.CREATED);
     }
 
+    //레시피 추천(토글 형식)
     @PostMapping("/recommend/{recipe-id}/{user-id}")
     public ResponseEntity toggleRecipeRecommend(@PathVariable("recipe-id") long recipeId,
-                                                @PathVariable("user-id") long userId) {    //레시피 추천(토글 형식)
+                                                @PathVariable("user-id") long userId) {
         RecipeDto.RecommendResponse response = recipeService.toggleRecipeRecommend(userId, recipeId);
         if (response.getRecommendId() != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -45,9 +47,10 @@ public class RecipeController {
         }
     }
 
+    //레시피 수정
     @PatchMapping("/update/{recipe-id}")
     public ResponseEntity patchRecipe(@PathVariable("recipe-id") long recipeId,
-                                      @RequestBody RecipeDto.Patch requestBody) {   //레시피 수정
+                                      @RequestBody RecipeDto.Patch requestBody) {
         requestBody.setRecipeId(recipeId);
         Recipe recipe = recipeMapper.patchToRecipe(requestBody);
         Recipe updatedRecipe = recipeService.updateRecipe(recipe);
@@ -56,8 +59,9 @@ public class RecipeController {
                         ,HttpStatus.OK);
     }
 
+    //레시피 상세 조회
     @GetMapping("/find/{recipe-id}")
-    public ResponseEntity getRecipe(@PathVariable("recipe-id") long recipeId) {    //레시피 상세 조회
+    public ResponseEntity getRecipe(@PathVariable("recipe-id") long recipeId) {
         Recipe recipe = recipeService.findRecipe(recipeId);
 
         return new ResponseEntity(
@@ -104,13 +108,22 @@ public class RecipeController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    //레시피 목록 조회(하단 바 클릭)
     @GetMapping("/find/underbar")
-    public ResponseEntity getRecipesUnderBar() {    //레시피 목록 조회(하단바 클릭)
-        return null;
+    public ResponseEntity getRecipesUnderBar() {
+        List<Recipe> recipes = recipeService.getAllRecipes();
+
+        MultiResponseDto<RecipeDto.ListResponse> responseDto = new MultiResponseDto<>(
+                recipeMapper.recipesToResponseList(recipes),
+                null // 페이지 정보가 없을 경우에는 null로 전달하거나 필요에 따라 적절한 값을 전달(page -> 무한스크롤?)
+        );
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    //레시피 삭제
     @DeleteMapping("/delete/{recipe-id}")
-    public ResponseEntity deleteRecipe(@PathVariable("recipe-id") long recipeId) {    //레시피 삭제
+    public ResponseEntity deleteRecipe(@PathVariable("recipe-id") long recipeId) {
         recipeService.deleteRecipe(recipeId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

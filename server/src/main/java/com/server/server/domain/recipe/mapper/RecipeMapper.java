@@ -59,10 +59,7 @@ public interface RecipeMapper {
         response.setRecipeImage(recipe.getRecipeImage());
         response.setViews(recipe.getViews());
         response.setRecommendCount(recipe.getRecommendCount());
-        // 필요한 경우 나머지 필드도 매핑해주세요.
 
         return response;
     }
-
-
 }

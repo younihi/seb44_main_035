@@ -102,5 +102,8 @@ public class RecipeService {
     public List<Recipe> searchRecipesByIngredients(List<String> ingredients) {
         return recipeRepository.findByIngredientsContainingIgnoreCase(ingredients);
     }
+    public List<Recipe> getAllRecipes() {
+        return recipeRepository.findAll();
+    }
 
 }
