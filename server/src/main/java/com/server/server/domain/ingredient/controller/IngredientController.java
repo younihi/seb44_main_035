@@ -42,16 +42,12 @@ private final IngredientMapper mapper;
     }
 
     @GetMapping
-    public ResponseEntity getIngredients(@Positive @RequestParam("page") int page,
-                                         @Positive @RequestParam("size") int size,
-                                         @RequestParam(value = "sortBy", required = false) String sortBy) {    //재료 목록 조회(사용자가 추가한 재료 목록을 불러옴)
-
-        Page<Ingredient> pageIngredients = ingredientService.findIngredients()
-    List<Ingredient> ingredients = ingredientService.findIngredients();
-
-        return new ResponseEntity<>(new MultiResponseDto(mapper.ingredientResponseDtos(ingredients)), HttpStatus.OK);
+    public ResponseEntity<List<IngredientResponseDto>> getIngredients() {
+        List<IngredientResponseDto> ingredients = ingredientService.findIngredients();
+        return  ResponseEntity.ok(ingredients);
     }
-    @DeleteMapping("/delete/{ingre-id}")
+
+    @DeleteMapping("/delete/{ingre-id}") //해당 재료 삭제
     public ResponseEntity deleteIngredient(@PathVariable("ingre-id") long ingredientId) {//재료 삭제
         ingredientService.deleteIngredient(ingredientId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

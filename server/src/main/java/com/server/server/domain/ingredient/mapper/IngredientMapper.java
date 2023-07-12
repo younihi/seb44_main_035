@@ -9,12 +9,9 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface IngredientMapper {
-    Ingredient ingredientPostDtoToIngredient (IngredientDto.Post requestBody);
+    Ingredient ingredientPostDtoToIngredient(IngredientDto.Post requestBody);
 
     Ingredient ingredientResponseDtoToIngredient(Ingredient ingredient);
 
-    List<IngredientResponseDto.Ingredient> ingredientResponseDtos(List<Ingredient>ingredients);
-
-    }
 
 }
