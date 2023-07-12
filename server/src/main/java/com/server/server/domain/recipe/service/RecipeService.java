@@ -24,6 +24,8 @@ public class RecipeService {
     private final RecommendRepository recommendRepository;
     private final RecommendService recommendService;
 
+
+
     public Recipe createRecipe(Recipe recipe) {
         Recipe savedRecipe = recipeRepository.save(recipe);
 
@@ -100,7 +102,7 @@ public class RecipeService {
     }
 
     public List<Recipe> searchRecipesByIngredients(List<String> ingredients) {
-        return recipeRepository.findByIngredientsContainingIgnoreCase(ingredients);
+        return recipeRepository.findByIngredientsInIgnoreCase(ingredients);
     }
     public List<Recipe> getAllRecipes() {
         return recipeRepository.findAll();

@@ -42,8 +42,9 @@ public class Recipe {
     private List<Recommend> recommendList = new ArrayList<>();
     @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL})
     private List<Comment> commentList = new ArrayList<>();
-    @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL})
-    private List<Ingredient> ingredientList = new ArrayList<>();
+    //@OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL})
+    @ElementCollection
+    private List<String> ingredients = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
