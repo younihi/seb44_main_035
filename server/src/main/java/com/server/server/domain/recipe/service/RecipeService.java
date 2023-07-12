@@ -95,4 +95,12 @@ public class RecipeService {
         return optionalRecipe.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.RECIPE_NOT_FOUND));
     }
+    public List<Recipe> searchRecipesByName(String recipeName) {
+        return recipeRepository.findByRecipeNameContainingIgnoreCase(recipeName);
+    }
+
+    public List<Recipe> searchRecipesByIngredients(List<String> ingredients) {
+        return recipeRepository.findByIngredientsContainingIgnoreCase(ingredients);
+    }
+
 }

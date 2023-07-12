@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface RecipeMapper {
@@ -44,4 +45,24 @@ public interface RecipeMapper {
         return list;
     }
     RecipeDto.PostResponse recipeToPostResponse(Recipe recipe);
+
+    default List<RecipeDto.ListResponse> recipesToResponseList(List<Recipe> recipes) {
+        return recipes.stream()
+                .map(this::recipeToListResponse)
+                .collect(Collectors.toList());
+    }
+
+    default RecipeDto.ListResponse recipeToListResponse(Recipe recipe) {
+        RecipeDto.ListResponse response = new RecipeDto.ListResponse();
+        response.setRecipeId(recipe.getRecipeId());
+        response.setRecipeName(recipe.getRecipeName());
+        response.setRecipeImage(recipe.getRecipeImage());
+        response.setViews(recipe.getViews());
+        response.setRecommendCount(recipe.getRecommendCount());
+        // 필요한 경우 나머지 필드도 매핑해주세요.
+
+        return response;
+    }
+
+
 }
