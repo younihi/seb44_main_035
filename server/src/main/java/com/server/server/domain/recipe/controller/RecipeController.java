@@ -5,17 +5,19 @@ import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.domain.recipe.mapper.RecipeMapper;
 import com.server.server.domain.recipe.service.RecipeService;
 import com.server.server.global.response.MultiResponseDto;
+import com.server.server.global.response.PageInfo;
 import com.server.server.global.response.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import com.server.server.domain.page.dto.PageDto;
 
-import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,7 @@ import java.util.List;
 public class RecipeController {
     private final RecipeMapper recipeMapper;
     private final RecipeService recipeService;
+
 
     //레시피 등록
     @PostMapping("/create")
@@ -71,54 +74,59 @@ public class RecipeController {
 
     //레시피 제목으로 검색
     @GetMapping("/findbyname/{recipe-name}")
-    public ResponseEntity getRecipeSearch(@PathVariable("recipe-name") String recipeName) {
-        List<Recipe> recipes = recipeService.searchRecipesByName(recipeName);
+    public ResponseEntity<List<RecipeDto.ListResponse>> getRecipeSearch(
+            @PathVariable("recipe-name") String recipeName,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Recipe> recipePage = recipeService.searchRecipesByName(recipeName, pageable);
 
-        MultiResponseDto<RecipeDto.ListResponse> responseDto = new MultiResponseDto<>(
-                recipeMapper.recipesToResponseList(recipes),
-                null // 페이지 정보가 없을 경우에는 null로 전달하거나 필요에 따라 적절한 값을 전달(page -> 무한스크롤?)
-        );
+        List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(responseList);
     }
 
     //냉장고 속 재료로 검색
-    @GetMapping("/find/main")
-    public ResponseEntity getRecipesMain(@RequestParam List<String> ingredients) {
-        List<Recipe> recipes = recipeService.searchRecipesByIngredients(ingredients);
+    @PostMapping("/find/main")
+    public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesMain(
+            @RequestBody List<String> ingredients,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Recipe> recipePage = recipeService.searchRecipesByIngredients(ingredients, pageable);
 
-        MultiResponseDto<RecipeDto.ListResponse> responseDto = new MultiResponseDto<>(
-                recipeMapper.recipesToResponseList(recipes),
-                null // 페이지 정보가 없을 경우에는 null로 전달하거나 필요에 따라 적절한 값을 전달(page -> 무한스크롤?)
-        );
+        List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(responseList);
     }
 
-    //장바구니에 추가된 재료로 검색(냉장고 검색이랑 동일? -> api 통일해야할지...)
-    @GetMapping("/select")
-    public ResponseEntity getRecipesSelected(@RequestParam List<String> ingredients) {    //레시피 목록 조회(장바구니에서 선택한 재료를 바탕으로 검색)
-        List<Recipe> recipes = recipeService.searchRecipesByIngredients(ingredients);
+    //장바구니에 추가된 재료로 검색(냉장고 검색이랑 동일? -> api 통일 해야할 것 같은디...)
+    @PostMapping("/select")
+    public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesSelected(
+            @RequestBody List<String> ingredients,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Recipe> recipePage = recipeService.searchRecipesByIngredients(ingredients, pageable);
 
-        MultiResponseDto<RecipeDto.ListResponse> responseDto = new MultiResponseDto<>(
-                recipeMapper.recipesToResponseList(recipes),
-                null // 페이지 정보가 없을 경우에는 null로 전달하거나 필요에 따라 적절한 값을 전달(page -> 무한스크롤?)
-        );
+        List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(responseList);
     }
 
     //레시피 목록 조회(하단 바 클릭)
     @GetMapping("/find/underbar")
-    public ResponseEntity getRecipesUnderBar() {
-        List<Recipe> recipes = recipeService.getAllRecipes();
+    public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesUnderBar(@RequestParam("page") int page, @RequestParam("size") int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Recipe> recipePage = recipeService.getAllRecipes(pageable);
 
-        MultiResponseDto<RecipeDto.ListResponse> responseDto = new MultiResponseDto<>(
-                recipeMapper.recipesToResponseList(recipes),
-                null // 페이지 정보가 없을 경우에는 null로 전달하거나 필요에 따라 적절한 값을 전달(page -> 무한스크롤?)
-        );
+        List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(responseList);
     }
 
     //레시피 삭제

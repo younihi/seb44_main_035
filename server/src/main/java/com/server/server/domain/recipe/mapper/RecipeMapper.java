@@ -52,14 +52,7 @@ public interface RecipeMapper {
                 .collect(Collectors.toList());
     }
 
-    default RecipeDto.ListResponse recipeToListResponse(Recipe recipe) {
-        RecipeDto.ListResponse response = new RecipeDto.ListResponse();
-        response.setRecipeId(recipe.getRecipeId());
-        response.setRecipeName(recipe.getRecipeName());
-        response.setRecipeImage(recipe.getRecipeImage());
-        response.setViews(recipe.getViews());
-        response.setRecommendCount(recipe.getRecommendCount());
 
-        return response;
-    }
+    RecipeDto.ListResponse recipeToListResponse(Recipe recipe);
+
 }
