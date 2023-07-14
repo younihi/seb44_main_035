@@ -1,7 +1,6 @@
 package com.server.server.domain.ingredient.controller;
 
 import com.server.server.domain.ingredient.dto.IngredientDto;
-import com.server.server.domain.ingredient.dto.IngredientResponseDto;
 import com.server.server.domain.ingredient.entity.Ingredient;
 import com.server.server.domain.ingredient.mapper.IngredientMapper;
 import com.server.server.domain.ingredient.service.IngredientService;
@@ -28,12 +27,13 @@ private final IngredientMapper mapper;
 
 
 
-    @PostMapping("/add")
-    public ResponseEntity postIngredient(@RequestBody IngredientDto.Post requestBody) {    //재료 등록(유저의 재료목록에 추가)
-       Ingredient ingredient = mapper.ingredientPostDtoToIngredient(requestBody);
-       Ingredient saveIngredient = ingredientService.createIngredient(ingredient);
+    @PostMapping("/add/{user-id}")
+    public ResponseEntity postIngredient(@PathVariable("user-id") long userId,
+                                         @RequestBody IngredientDto.Post requestBody) {    //재료 등록(유저의 재료목록에 추가)
+       Ingredient ingredient = mapper.PostToIngredient(requestBody);
+       Ingredient saveIngredient = ingredientService.addIngredient(ingredient,userId);
 
-        return new ResponseEntity<>(new SingleResponseDto(mapper.ingredientResponseDtoToIngredient(saveIngredient)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto(mapper.ingredientToResponse(saveIngredient)), HttpStatus.CREATED);
     }
 
     @PostMapping("/request")
@@ -41,10 +41,16 @@ private final IngredientMapper mapper;
         return null;
     }
 
-    @GetMapping
-    public ResponseEntity<List<IngredientResponseDto>> getIngredients() {
-        List<IngredientResponseDto> ingredients = ingredientService.findIngredients();
-        return  ResponseEntity.ok(ingredients);
+    @GetMapping("/{user-id}")
+    public ResponseEntity getIngredients(@PathVariable("user-id") long userId,
+                                         @Positive @RequestParam(value = "page", defaultValue = "1") int page,
+                                         @Positive @RequestParam(value = "size", defaultValue = "20") int size) {
+        Page<Ingredient> pageIngredient = ingredientService.findUserIngredient(userId, page-1, size);
+        List<Ingredient> ingredientList = pageIngredient.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.ingredientsToResponses(ingredientList),pageIngredient),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{ingre-id}") //해당 재료 삭제

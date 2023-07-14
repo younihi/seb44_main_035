@@ -11,17 +11,15 @@ public class IngredientDto {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Post{
+    public static class Post {
         private String ingredientName;
     }
-
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Patch {
+    public static class Response {
+        private long ingredientId;
         private String ingredientName;
     }
-
-
 }
