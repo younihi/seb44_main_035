@@ -38,13 +38,14 @@ public class CommentController {
         Comment response = commentService.createComment(comment, recipeId);
         URI location = UriCreator.createUri(COMMENT_DEFAULT_URL, comment.getCommentId());
 
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(response)),
+                HttpStatus.CREATED);
     }
 
     @PatchMapping("/update/{comment-id}")
     public ResponseEntity patchComment(@Valid @RequestBody CommentDto.Patch patch,
                                        @Positive @PathVariable("comment-id") long commentId) {    //댓글 수정
-        patch.addCommentId(commentId);
+        patch.setCommentId(commentId);
         Comment updatedComment = commentService.updateComment(commentMapper.commentPatchToComment(patch));
         return new ResponseEntity<>(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(updatedComment)), HttpStatus.OK);
     }
@@ -57,20 +58,20 @@ public class CommentController {
     }
 
 
-    @GetMapping("/{comment-id}")
-    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId) {    //댓글 조회
-        Comment foundComment = commentService.findComment(commentId);
-        CommentDto.Response commentToCommentResponseDto = commentMapper.commentToCommentResponseDto(foundComment);
-        return ResponseEntity.ok(new SingleResponseDto<>(commentToCommentResponseDto));
-    }
+//    @GetMapping("/{comment-id}")
+//    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId) {    //댓글 조회
+//        Comment foundComment = commentService.findComment(commentId);
+//        CommentDto.Response commentToCommentResponseDto = commentMapper.commentToCommentResponseDto(foundComment);
+//        return ResponseEntity.ok(new SingleResponseDto<>(commentToCommentResponseDto));
+//    }
 
-    @GetMapping
-    public ResponseEntity getComments(@RequestParam @Positive int page,
-                                      @RequestParam @Positive int size) {
-        Page<Comment> pageComments = commentService.findComments(page-1, size);
-        List<Comment> comments = pageComments.getContent();
-
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(commentMapper.commentsToCommentResponseDtos(comments),pageComments), HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity getComments(@RequestParam @Positive int page,
+//                                      @RequestParam @Positive int size) {
+//        Page<Comment> pageComments = commentService.findComments(page-1, size);
+//        List<Comment> comments = pageComments.getContent();
+//
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(commentMapper.commentsToCommentResponseDtos(comments),pageComments), HttpStatus.OK);
+//    }
 }
