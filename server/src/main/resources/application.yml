@@ -24,3 +24,15 @@ server:
   servlet:
     encoding:
       force-response: true
+cloud:
+  aws:
+    s3:
+      bucket: my-github-actions-s3-burket
+    credentials:
+      access-key: AKIATYK3GYSCFHHJCTAY
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
