@@ -51,8 +51,9 @@ public class RecipeController {
     }
 
     @GetMapping("/find/{recipe-id}")
-    public ResponseEntity getRecipe(@PathVariable("recipe-id") long recipeId) {    //레시피 상세 조회
+    public ResponseEntity getRecipe(@PathVariable("recipe-id") long recipeId) {    //레시피 상세 조회(조회수 증가)
         Recipe recipe = recipeService.findRecipe(recipeId);
+        recipeService.incrementViewCount(recipe);
 
         return new ResponseEntity(
                 new SingleResponseDto<>(recipeMapper.recipeToResponse(recipe))

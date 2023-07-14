@@ -50,6 +50,11 @@ public class RecipeService {
 
     }
 
+    public Recipe incrementViewCount(Recipe recipe) {
+        recipe.setViews(recipe.getViews()+1);
+        recipeRepository.save(recipe);
+        return recipe;
+    }
     public RecipeDto.RecommendResponse toggleRecipeRecommend(long userId, long recipeId) {
         User user = userService.findUser(userId);
         Recipe recipe = findRecipe(recipeId);
