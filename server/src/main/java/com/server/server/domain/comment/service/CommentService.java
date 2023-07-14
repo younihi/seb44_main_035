@@ -3,6 +3,7 @@ package com.server.server.domain.comment.service;
 import com.server.server.domain.comment.dto.CommentDto;
 import com.server.server.domain.comment.entity.Comment;
 import com.server.server.domain.comment.repository.CommentRepository;
+import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.domain.recipe.service.RecipeService;
 import com.server.server.domain.user.entity.User;
 import com.server.server.domain.user.service.UserService;
@@ -35,7 +36,9 @@ public class CommentService {
     }
 
     public Comment createComment(Comment comment, Long recipeId) {
-        comment.setRecipe(recipeService.findVerifiedRecipe(recipeId));
+        Recipe recipe = recipeService.findRecipe(recipeId);
+        recipe.addComment(comment);
+        recipeService.updateRecipe(recipe);
         return commentRepository.save(comment);
     }
 

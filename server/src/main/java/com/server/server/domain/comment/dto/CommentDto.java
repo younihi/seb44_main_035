@@ -22,10 +22,7 @@ public class CommentDto {
     public static class Patch {
         private long commentId;
         private String commentContent;
-        public void addCommentId(long commentId) {
-            this.commentId = commentId;
         }
-    }
 
     @Getter
     @Setter
@@ -37,8 +34,8 @@ public class CommentDto {
         private long userId;
         private long commentId;
         private String commentContent;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private String createdAt;
+        private String modifiedAt;
         private String createdBy;
     }
 

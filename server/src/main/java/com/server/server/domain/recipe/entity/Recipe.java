@@ -64,4 +64,9 @@ public class Recipe {
         recommend.setRecipe(this);
         this.recommendCount = this.recommendList.size();
     }
+
+    public void addComment(Comment comment) {
+        this.commentList.add(comment);
+        comment.setRecipe(this);
+    }
 }

@@ -13,19 +13,12 @@ import java.util.stream.Collectors;
 public interface CommentMapper {
     Comment commentPostToComment(CommentDto.Post requestBody);
     Comment commentPatchToComment(CommentDto.Patch requestBody);
-    @Mapping(target = "createdBy", source = "user.name")
-    CommentDto.Response commentToCommentResponseDto(Comment comment);
-    default List<CommentDto.Response> commentsToCommentResponseDtos(List<Comment> comments){
-        List<CommentDto.Response> response=comments.stream()
-                .map(comment->CommentDto.Response.builder()
-                        .commentId(comment.getCommentId())
-                        .commentContent(comment.getCommentContent())
-//                        .createdAt(comment.getCreatedAt())
-//                        .modifiedAt(comment.getModifiedAt())
-                        .createdBy(comment.getUser().getName())
-                        .createdBy(comment.getUser().getEmail())
-                        .build())
-                .collect(Collectors.toList());
+    default CommentDto.Response commentToCommentResponseDto(Comment comment) {
+        CommentDto.Response response = new CommentDto.Response();
+        response.setCommentId(comment.getCommentId());
+        response.setCommentContent(comment.getCommentContent());
+        response.setCreatedAt(comment.getCreatedAt());
+        response.setModifiedAt(comment.getModifiedAt());
         return response;
     }
 }
