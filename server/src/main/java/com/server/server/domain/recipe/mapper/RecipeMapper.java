@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface RecipeMapper {
@@ -44,4 +45,14 @@ public interface RecipeMapper {
         return list;
     }
     RecipeDto.PostResponse recipeToPostResponse(Recipe recipe);
+
+    default List<RecipeDto.ListResponse> recipesToResponseList(List<Recipe> recipes) {
+        return recipes.stream()
+                .map(this::recipeToListResponse)
+                .collect(Collectors.toList());
+    }
+
+
+    RecipeDto.ListResponse recipeToListResponse(Recipe recipe);
+
 }
