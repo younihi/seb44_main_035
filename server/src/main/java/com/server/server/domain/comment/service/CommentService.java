@@ -10,6 +10,7 @@ import com.server.server.domain.user.service.UserService;
 import com.server.server.global.exception.ExceptionCode;
 import com.server.server.global.utils.CustomBeanUtils;
 import com.server.server.global.exception.BusinessLogicException;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,24 +22,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
     private final RecipeService recipeService;
     private final UserService userService;
-    private final CustomBeanUtils<User> beanUtils;
-
-    public CommentService(CommentRepository commentRepository, UserService userService,
-                          RecipeService recipeService, CustomBeanUtils beanUtils) {
-        this.commentRepository = commentRepository;
-        this.userService = userService;
-        this.recipeService = recipeService;
-        this.beanUtils = beanUtils;
-    }
 
     public Comment createComment(Comment comment, Long recipeId) {
         Recipe recipe = recipeService.findRecipe(recipeId);
         recipe.addComment(comment);
-        recipeService.updateRecipe(recipe);
         return commentRepository.save(comment);
     }
 
