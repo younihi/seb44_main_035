@@ -27,6 +27,8 @@ public class User {
     private String email;
     @Column
     private String password;
+    @Column
+    private String name;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
     private List<Recipe> recipeList = new ArrayList<>();
