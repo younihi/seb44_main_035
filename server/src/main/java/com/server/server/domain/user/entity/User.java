@@ -27,6 +27,8 @@ public class User {
     private String email;
     @Column
     private String password;
+    @Column
+    private String name;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
     private List<Recipe> recipeList = new ArrayList<>();
@@ -46,5 +48,10 @@ public class User {
     public void addRecommend(Recommend recommend) {
         this.recommendList.add(recommend);
         recommend.setUser(this);
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredientList.add(ingredient);
+        ingredient.setUser(this);
     }
 }
