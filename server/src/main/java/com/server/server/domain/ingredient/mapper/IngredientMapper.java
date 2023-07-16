@@ -9,7 +9,9 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface IngredientMapper {
-    Ingredient PostToIngredient(IngredientDto.Post requestBody);
+    Ingredient PostRecipeToIngredient(IngredientDto.PostRecipe requestBody);
+    List<Ingredient> PostRecipeToIngredients(List<IngredientDto.PostRecipe> requestBody);
+    Ingredient PostUserToIngredient(IngredientDto.PostUser requestBody);
     IngredientDto.Response ingredientToResponse(Ingredient ingredient);
     List<IngredientDto.Response> ingredientsToResponses(List<Ingredient> ingredients);
 

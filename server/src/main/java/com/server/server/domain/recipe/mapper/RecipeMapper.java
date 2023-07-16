@@ -2,6 +2,9 @@ package com.server.server.domain.recipe.mapper;
 
 import com.server.server.domain.comment.dto.CommentDto;
 import com.server.server.domain.comment.entity.Comment;
+import com.server.server.domain.comment.mapper.CommentMapper;
+import com.server.server.domain.ingredient.dto.IngredientDto;
+import com.server.server.domain.ingredient.entity.Ingredient;
 import com.server.server.domain.recipe.dto.RecipeDto;
 import com.server.server.domain.recipe.entity.Recipe;
 import org.mapstruct.Mapper;
@@ -12,9 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RecipeMapper {
-    default Recipe postToRecipe(RecipeDto.Post post){
+    default Recipe postToRecipe(RecipeDto.Post post, List<Ingredient> ingredients){
         Recipe recipe = new Recipe();
         recipe.setRecipeName(post.getRecipeName());
         recipe.setRecipeIntro(post.getRecipeIntro());
@@ -31,6 +35,7 @@ public interface RecipeMapper {
                 recipe.getCookStepImage().addAll( list1 );
             }
         }
+        recipe.setIngredients(ingredients);
         return recipe;
     }
     Recipe patchToRecipe(RecipeDto.Patch patch);
@@ -67,6 +72,16 @@ public interface RecipeMapper {
             responseList.add(commentResponse);
         }
         response.setComments(responseList);
+        List<IngredientDto.Response> ingredientResponse = new ArrayList<>();
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            IngredientDto.Response ingreResponse = new IngredientDto.Response();
+            ingreResponse.setIngredientId( ingredient.getIngredientId() );
+            ingreResponse.setIngredientName( ingredient.getIngredientName() );
+            ingreResponse.setQuantity( ingredient.getQuantity() );
+            ingredientResponse.add(ingreResponse);
+        }
+        response.setIngredients(ingredientResponse);
+
         return response;
     }
     default List<RecipeDto.ListResponse> recipeToResponseList(List<Recipe> recipes){

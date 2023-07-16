@@ -1,5 +1,7 @@
 package com.server.server.domain.recipe.controller;
 
+import com.server.server.domain.ingredient.entity.Ingredient;
+import com.server.server.domain.ingredient.mapper.IngredientMapper;
 import com.server.server.domain.recipe.dto.RecipeDto;
 import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.domain.recipe.mapper.RecipeMapper;
@@ -27,12 +29,14 @@ import java.util.List;
 public class RecipeController {
     private final RecipeMapper recipeMapper;
     private final RecipeService recipeService;
+    private final IngredientMapper ingredientMapper;
 
 
     //레시피 등록
     @PostMapping("/create")
     public ResponseEntity postRecipe(@RequestBody RecipeDto.Post requestBody) {
-        Recipe recipe = recipeMapper.postToRecipe(requestBody);
+        List<Ingredient> ingredients = ingredientMapper.PostRecipeToIngredients(requestBody.getIngredients());
+        Recipe recipe = recipeMapper.postToRecipe(requestBody, ingredients);
         Recipe savedRecipe = recipeService.createRecipe(recipe);
 
         return new ResponseEntity<>(new SingleResponseDto(recipeMapper.recipeToPostResponse(savedRecipe)), HttpStatus.CREATED);

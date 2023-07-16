@@ -2,6 +2,7 @@ package com.server.server.domain.recipe.dto;
 
 import com.server.server.domain.comment.dto.CommentDto;
 import com.server.server.domain.comment.entity.Comment;
+import com.server.server.domain.ingredient.dto.IngredientDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class RecipeDto {
         private String recipeName;
         private String recipeImage;
         private String recipeIntro;
+        private List<IngredientDto.PostRecipe> ingredients;
         private List<String> cookStepContent;
         private List<String> cookStepImage;
     }
@@ -47,6 +49,7 @@ public class RecipeDto {
         private int views;
         private int recommendCount;
         private List<CommentDto.Response> comments;
+        private List<IngredientDto.Response> ingredients;
     }
     @Getter
     @Setter

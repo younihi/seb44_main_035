@@ -3,6 +3,7 @@ package com.server.server.domain.ingredient.service;
 import com.server.server.domain.ingredient.dto.IngredientDto;
 import com.server.server.domain.ingredient.entity.Ingredient;
 import com.server.server.domain.ingredient.repository.IngredientRepository;
+import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.domain.user.entity.User;
 import com.server.server.domain.user.service.UserService;
 import com.server.server.global.exception.BusinessLogicException;
@@ -33,6 +34,9 @@ public class IngredientService {
         user.addIngredient(findIngredient);
 
         return ingredientRepository.save(findIngredient);
+    }
+    public List<Ingredient> saveAll(List<Ingredient> ingredients) {
+        return ingredientRepository.saveAll(ingredients);
     }
     @Transactional
     public void deleteIngredient(long ingredientId) {
