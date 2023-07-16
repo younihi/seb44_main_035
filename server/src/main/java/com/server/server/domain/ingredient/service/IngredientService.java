@@ -49,7 +49,7 @@ public class IngredientService {
                 new BusinessLogicException(ExceptionCode.INGREDIENT_NOT_FOUND));
     }
     public Ingredient findVerifiedIngredient(String ingredientName){
-        Optional<Ingredient> ingredient = ingredientRepository.findByName(ingredientName);
+        Optional<Ingredient> ingredient = ingredientRepository.findByIngredientName(ingredientName);
         return  ingredient.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.INGREDIENT_NOT_FOUND));
     }

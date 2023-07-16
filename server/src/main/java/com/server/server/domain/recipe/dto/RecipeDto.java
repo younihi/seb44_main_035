@@ -1,5 +1,6 @@
 package com.server.server.domain.recipe.dto;
 
+import com.server.server.domain.comment.dto.CommentDto;
 import com.server.server.domain.comment.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,7 +46,7 @@ public class RecipeDto {
         private List<String> cookStepImage;
         private int views;
         private int recommendCount;
-        private List<Comment> comments;
+        private List<CommentDto.Response> comments;
     }
     @Getter
     @Setter

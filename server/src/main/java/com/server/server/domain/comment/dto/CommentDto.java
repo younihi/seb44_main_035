@@ -36,7 +36,7 @@ public class CommentDto {
         private String commentContent;
         private String createdAt;
         private String modifiedAt;
-        private String createdBy;
+//        private String createdBy;
     }
 
     @Getter

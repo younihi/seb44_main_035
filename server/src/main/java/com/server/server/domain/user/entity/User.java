@@ -54,4 +54,8 @@ public class User {
         this.ingredientList.add(ingredient);
         ingredient.setUser(this);
     }
+    public void addComment(Comment comment) {
+        this.commentList.add(comment);
+        comment.setUser(this);
+    }
 }
