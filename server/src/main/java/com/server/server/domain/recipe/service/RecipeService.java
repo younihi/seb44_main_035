@@ -1,5 +1,7 @@
 package com.server.server.domain.recipe.service;
 
+import com.server.server.domain.ingredient.entity.Ingredient;
+import com.server.server.domain.ingredient.service.IngredientService;
 import com.server.server.domain.recommend.service.RecommendService;
 import com.server.server.domain.user.entity.User;
 import com.server.server.domain.user.service.UserService;
@@ -25,13 +27,17 @@ public class RecipeService {
     private final UserService userService;
     private final RecommendRepository recommendRepository;
     private final RecommendService recommendService;
+    private final IngredientService ingredientService;
 
 
 
     public Recipe createRecipe(Recipe recipe) {
-        Recipe savedRecipe = recipeRepository.save(recipe);
-
-        return savedRecipe;
+        List<Ingredient> ingredients = ingredientService.saveAll(recipe.getIngredients());
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            ingredient.setRecipe(recipe);
+        }
+        recipe.setIngredients(ingredients);
+        return recipeRepository.save(recipe);
     }
 
     public Recipe updateRecipe(Recipe recipe) {
@@ -91,6 +97,7 @@ public class RecipeService {
 
         return response;
     }
+
 
     public void deleteRecipe(long recipeId) {
         recipeRepository.delete(findRecipe(recipeId));

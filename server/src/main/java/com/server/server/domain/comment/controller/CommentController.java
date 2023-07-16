@@ -30,13 +30,14 @@ public class CommentController {
         this.commentMapper = commentMapper;
     }
 
-    @PostMapping("/create/{recipe-id}")
+    @PostMapping("/create/{recipe-id}/{user-id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post post,
-                                      @PathVariable("recipe-id") long recipeId) {    //댓글 등록
+                                      @PathVariable("recipe-id") long recipeId,
+                                      @PathVariable("user-id") long userId) {    //댓글 등록
         Comment comment = commentMapper.commentPostToComment(post);
-        Comment response = commentService.createComment(comment, recipeId);
-        URI location = UriCreator.createUri(COMMENT_DEFAULT_URL, comment.getCommentId());
+        Comment response = commentService.createComment(comment, recipeId, userId);
+
 
         return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(response)),
                 HttpStatus.CREATED);

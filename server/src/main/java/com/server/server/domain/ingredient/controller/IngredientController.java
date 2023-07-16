@@ -29,8 +29,8 @@ private final IngredientMapper mapper;
 
     @PostMapping("/add/{user-id}")
     public ResponseEntity postIngredient(@PathVariable("user-id") long userId,
-                                         @RequestBody IngredientDto.Post requestBody) {    //재료 등록(유저의 재료목록에 추가)
-       Ingredient ingredient = mapper.PostToIngredient(requestBody);
+                                         @RequestBody IngredientDto.PostUser requestBody) {    //재료 등록(유저의 재료목록에 추가)
+       Ingredient ingredient = mapper.PostUserToIngredient(requestBody);
        Ingredient saveIngredient = ingredientService.addIngredient(ingredient,userId);
 
         return new ResponseEntity<>(new SingleResponseDto(mapper.ingredientToResponse(saveIngredient)), HttpStatus.CREATED);

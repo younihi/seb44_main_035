@@ -28,9 +28,11 @@ public class CommentService {
     private final RecipeService recipeService;
     private final UserService userService;
 
-    public Comment createComment(Comment comment, Long recipeId) {
+    public Comment createComment(Comment comment, Long recipeId, Long userId) {
         Recipe recipe = recipeService.findRecipe(recipeId);
+        User user = userService.findUser(userId);
         recipe.addComment(comment);
+        user.addComment(comment);
         return commentRepository.save(comment);
     }
 
