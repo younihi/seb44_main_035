@@ -25,7 +25,7 @@ public class Recipe {
     @Column(nullable = false)
     private String recipeName;
     @Column
-    private String recipeImage;
+    private String recipeImage = "";
     @Column
     private String recipeIntro;
     @ElementCollection

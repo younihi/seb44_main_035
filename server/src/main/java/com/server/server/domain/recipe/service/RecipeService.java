@@ -12,10 +12,12 @@ import com.server.server.domain.recommend.entity.Recommend;
 import com.server.server.domain.recommend.repository.RecommendRepository;
 import com.server.server.global.exception.BusinessLogicException;
 import com.server.server.global.exception.ExceptionCode;
+import com.server.server.global.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,18 +30,23 @@ public class RecipeService {
     private final RecommendRepository recommendRepository;
     private final RecommendService recommendService;
     private final IngredientService ingredientService;
+    private final S3Uploader s3Uploader;
 
 
 
-    public Recipe createRecipe(Recipe recipe) {
+    public Recipe createRecipe(Recipe recipe, MultipartFile recipeImage, List<MultipartFile> cookStepImage) {
         List<Ingredient> ingredients = ingredientService.saveAll(recipe.getIngredients());
         for (Ingredient ingredient : recipe.getIngredients()) {
             ingredient.setRecipe(recipe);
         }
         recipe.setIngredients(ingredients);
+        uploadImage(recipe, recipeImage, cookStepImage);
         return recipeRepository.save(recipe);
     }
 
+    public void uploadImage(Recipe recipe, MultipartFile recipeImage, List<MultipartFile> cookStepImage) {
+        String fileUrl = s3Uploader.putS3()
+    }
     public Recipe updateRecipe(Recipe recipe) {
         Recipe findRecipe = findRecipe(recipe.getRecipeId());
 

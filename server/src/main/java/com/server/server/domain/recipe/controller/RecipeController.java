@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.server.server.domain.page.dto.PageDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -34,10 +35,12 @@ public class RecipeController {
 
     //레시피 등록
     @PostMapping("/create")
-    public ResponseEntity postRecipe(@RequestBody RecipeDto.Post requestBody) {
+    public ResponseEntity postRecipe(@RequestPart(value = "recipeImage", required = false) MultipartFile recipeImage,
+                                     @RequestPart(value = "cookStepImage", required = false) List<MultipartFile> cookStepImage,
+                                     @RequestBody RecipeDto.Post requestBody) {
         List<Ingredient> ingredients = ingredientMapper.PostRecipeToIngredients(requestBody.getIngredients());
         Recipe recipe = recipeMapper.postToRecipe(requestBody, ingredients);
-        Recipe savedRecipe = recipeService.createRecipe(recipe);
+        Recipe savedRecipe = recipeService.createRecipe(recipe, recipeImage, cookStepImage);
 
         return new ResponseEntity<>(new SingleResponseDto(recipeMapper.recipeToPostResponse(savedRecipe)), HttpStatus.CREATED);
     }
