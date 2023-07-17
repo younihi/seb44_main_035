@@ -109,24 +109,22 @@ public class RecipeController {
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "16") int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        Page<Recipe> recipePage = recipeService.searchRecipesByIngredients(ingredients, pageable);
-
-        List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
+        List<Recipe> recipePage = recipeService.searchRecipesByIngredients(ingredients, pageable);
+        List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage);
 
         return ResponseEntity.ok()
                 .body(responseList);
     }
 
     //장바구니에 추가된 재료로 검색(들어온 재료 모두로 검색) - 선택재료 모두 포함하는 로직 짜야됨
-    @PostMapping("/select")
+    @GetMapping("/select")
     public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesSelected(
-            @RequestBody List<String> ingredients,
+            @RequestParam List<String> ingredients,
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "16") int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        Page<Recipe> recipePage = recipeService.searchAllRecipesByIngredients(ingredients, pageable);
-
-        List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
+        List<Recipe> recipePage = recipeService.searchAllRecipesByIngredients(ingredients, pageable);
+        List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage);
 
         return ResponseEntity.ok()
                 .body(responseList);

@@ -20,6 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +37,8 @@ public class RecipeService {
     private final RecommendService recommendService;
     private final IngredientService ingredientService;
     private final S3Uploader s3Uploader;
+    @PersistenceContext
+    private final EntityManager entityManager;
 
 
 
@@ -155,13 +160,30 @@ public class RecipeService {
     }
 
     // 장바구니 속 재료로 검색
-    public Page<Recipe> searchAllRecipesByIngredients(List<String> ingredients, Pageable pageable) {
-        return recipeRepository.findByIngredientsIn(ingredients, pageable);
+    public List<Recipe> searchAllRecipesByIngredients(List<String> ingredients, Pageable pageable) {
+        String query = "SELECT r FROM Recipe r JOIN r.ingredients i WHERE i.ingredientName IN :ingredients " +
+                "GROUP BY r " +
+                "HAVING COUNT(DISTINCT i.ingredientName) = :ingredientCount " +
+                "AND COUNT(DISTINCT i.ingredientName) = :ingredientListCount";
+        TypedQuery<Recipe> typedQuery = entityManager.createQuery(query, Recipe.class);
+        typedQuery.setParameter("ingredients", ingredients);
+        typedQuery.setParameter("ingredientCount", Long.valueOf(ingredients.size()));
+        typedQuery.setParameter("ingredientListCount", (long) ingredients.size());
+        typedQuery.setFirstResult((pageable.getPageNumber()) * pageable.getPageSize());
+        typedQuery.setMaxResults(pageable.getPageSize());
+
+        return typedQuery.getResultList();
     }
 
     //냉장고 속 재료로 검색
-    public Page<Recipe> searchRecipesByIngredients(List<String> ingredientNames, Pageable pageable) {
-        return recipeRepository.findByIngredients_IngredientNameIn(ingredientNames, pageable);
+    public List<Recipe> searchRecipesByIngredients(List<String> ingredients, Pageable pageable) {
+        String query = "SELECT DISTINCT r FROM Recipe r JOIN r.ingredients i WHERE i.ingredientName IN :ingredients";
+        TypedQuery<Recipe> typedQuery = entityManager.createQuery(query, Recipe.class);
+        typedQuery.setParameter("ingredients", ingredients);
+        typedQuery.setFirstResult((pageable.getPageNumber()) * pageable.getPageSize());
+        typedQuery.setMaxResults(pageable.getPageSize());
+
+        return typedQuery.getResultList();
     }
 
     //전체 레시피 조회(하단 바)
