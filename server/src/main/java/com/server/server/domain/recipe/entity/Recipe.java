@@ -25,7 +25,7 @@ public class Recipe {
     @Column(nullable = false)
     private String recipeName;
     @Column
-    private String recipeImage = "";
+    private String recipeImage;
     @Column
     private String recipeIntro;
     @ElementCollection
@@ -68,5 +68,13 @@ public class Recipe {
     public void addComment(Comment comment) {
         this.commentList.add(comment);
         comment.setRecipe(this);
+    }
+
+    public void addCookStepImage(String image) {
+        this.cookStepImage.add(image);
+    }
+
+    public void removeCookStepImage() {
+
     }
 }

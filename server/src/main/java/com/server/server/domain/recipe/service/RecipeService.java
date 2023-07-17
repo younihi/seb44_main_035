@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,26 +48,45 @@ public class RecipeService {
     }
 
     public void uploadImage(Recipe recipe, MultipartFile recipeImage, List<MultipartFile> cookStepImage) {
-        String fileUrl = s3Uploader.putS3()
+        String fileUrl = s3Uploader.upload(recipeImage);
+        recipe.setRecipeImage(fileUrl);
+        for (MultipartFile file : cookStepImage) {
+            String url = s3Uploader.upload(file);
+            recipe.addCookStepImage(url);
+        }
     }
-    public Recipe updateRecipe(Recipe recipe) {
+
+    public Recipe updateRecipe(Recipe recipe, MultipartFile recipeImage, List<MultipartFile> cookStepImage) {
         Recipe findRecipe = findRecipe(recipe.getRecipeId());
 
         Optional.ofNullable(recipe.getRecipeName())
                 .ifPresent(name -> findRecipe.setRecipeName(name));
-        Optional.ofNullable(recipe.getRecipeImage())
-                .ifPresent(image -> findRecipe.setRecipeImage(image));
         Optional.ofNullable(recipe.getRecipeIntro())
                 .ifPresent(intro -> findRecipe.setRecipeIntro(intro));
+        if (recipe.getIngredients() != null) {
+            findRecipe.setIngredients(recipe.getIngredients());
+        }
         if (recipe.getCookStepContent().size() != 0) {
             findRecipe.setCookStepContent(recipe.getCookStepContent());
         }
-        if (recipe.getCookStepImage().size() != 0) {
-            findRecipe.setCookStepImage(recipe.getCookStepImage());
+        if (recipeImage != null) {
+            String url = findRecipe.getRecipeImage();
+            s3Uploader.delete(url);
+            String fileUrl = s3Uploader.upload(recipeImage);
+            findRecipe.setRecipeImage(fileUrl);
+        }
+        if (cookStepImage != null) {
+            for (String url : findRecipe.getCookStepImage()) {
+                s3Uploader.delete(url);
+            }
+            findRecipe.setCookStepImage(new ArrayList<>());
+            for (MultipartFile file : cookStepImage) {
+                String url = s3Uploader.upload(file);
+                findRecipe.addCookStepImage(url);
+            }
         }
 
         return recipeRepository.save(findRecipe);
-
     }
 
     public Recipe incrementViewCount(Recipe recipe) {
@@ -109,7 +129,15 @@ public class RecipeService {
 
 
     public void deleteRecipe(long recipeId) {
-        recipeRepository.delete(findRecipe(recipeId));
+        Recipe findRecipe = findRecipe(recipeId);
+        String url = findRecipe.getRecipeImage();
+        s3Uploader.delete(url);
+
+        for (String fileUrl : findRecipe.getCookStepImage()) {
+            s3Uploader.delete(fileUrl);
+        }
+
+        recipeRepository.delete(findRecipe);
     }
     public Recipe findRecipe(long recipeId) {
         return findVerifiedRecipe(recipeId);
