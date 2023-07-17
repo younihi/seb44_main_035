@@ -19,7 +19,8 @@ public class Ingredient {
     private long ingredientId;
     @Column
     private String ingredientName;
-
+    @Column
+    private String quantity;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
