@@ -16,6 +16,7 @@ import com.server.server.global.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -160,7 +161,17 @@ public class RecipeService {
     }
 
     // 장바구니 속 재료로 검색
-    public List<Recipe> searchAllRecipesByIngredients(List<String> ingredients, Pageable pageable) {
+    public Page<Recipe> searchAllRecipesByIngredients(List<String> ingredients, Pageable pageable) {
+        String countQuery = "SELECT COUNT(DISTINCT r) FROM Recipe r JOIN r.ingredients i WHERE i.ingredientName IN :ingredients " +
+                "GROUP BY r " +
+                "HAVING COUNT(DISTINCT i.ingredientName) = :ingredientCount " +
+                "AND COUNT(DISTINCT i.ingredientName) = :ingredientListCount";
+        TypedQuery<Long> countTypedQuery = entityManager.createQuery(countQuery, Long.class);
+        countTypedQuery.setParameter("ingredients", ingredients);
+        countTypedQuery.setParameter("ingredientCount", Long.valueOf(ingredients.size()));
+        countTypedQuery.setParameter("ingredientListCount", (long) ingredients.size());
+        Long totalCount = countTypedQuery.getSingleResult();
+
         String query = "SELECT r FROM Recipe r JOIN r.ingredients i WHERE i.ingredientName IN :ingredients " +
                 "GROUP BY r " +
                 "HAVING COUNT(DISTINCT i.ingredientName) = :ingredientCount " +
@@ -169,21 +180,29 @@ public class RecipeService {
         typedQuery.setParameter("ingredients", ingredients);
         typedQuery.setParameter("ingredientCount", Long.valueOf(ingredients.size()));
         typedQuery.setParameter("ingredientListCount", (long) ingredients.size());
-        typedQuery.setFirstResult((pageable.getPageNumber()) * pageable.getPageSize());
+        typedQuery.setFirstResult((int) pageable.getOffset());
         typedQuery.setMaxResults(pageable.getPageSize());
+        List<Recipe> resultList = typedQuery.getResultList();
 
-        return typedQuery.getResultList();
+        return new PageImpl<>(resultList, pageable, totalCount);
     }
 
+
     //냉장고 속 재료로 검색
-    public List<Recipe> searchRecipesByIngredients(List<String> ingredients, Pageable pageable) {
+    public Page<Recipe> searchRecipesByIngredients(List<String> ingredients, Pageable pageable) {
+        String countQuery = "SELECT COUNT(DISTINCT r) FROM Recipe r JOIN r.ingredients i WHERE i.ingredientName IN :ingredients";
+        TypedQuery<Long> countTypedQuery = entityManager.createQuery(countQuery, Long.class);
+        countTypedQuery.setParameter("ingredients", ingredients);
+        Long totalCount = countTypedQuery.getSingleResult();
+
         String query = "SELECT DISTINCT r FROM Recipe r JOIN r.ingredients i WHERE i.ingredientName IN :ingredients";
         TypedQuery<Recipe> typedQuery = entityManager.createQuery(query, Recipe.class);
         typedQuery.setParameter("ingredients", ingredients);
-        typedQuery.setFirstResult((pageable.getPageNumber()) * pageable.getPageSize());
+        typedQuery.setFirstResult((int) pageable.getOffset());
         typedQuery.setMaxResults(pageable.getPageSize());
+        List<Recipe> resultList = typedQuery.getResultList();
 
-        return typedQuery.getResultList();
+        return new PageImpl<>(resultList, pageable, totalCount);
     }
 
     //전체 레시피 조회(하단 바)
