@@ -22,6 +22,7 @@ import com.server.server.domain.page.dto.PageDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/recipes")
@@ -95,7 +96,7 @@ public class RecipeController {
                 .body(responseList);
     }
 
-    //냉장고 속 재료로 검색
+    //냉장고 속 재료로 검색(하나 이상 포함되면 검색)
     @PostMapping("/find/main")
     public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesMain(
             @RequestBody List<String> ingredients,
@@ -110,14 +111,14 @@ public class RecipeController {
                 .body(responseList);
     }
 
-    //장바구니에 추가된 재료로 검색(냉장고 검색이랑 동일? -> api 통일 해야할 것 같은디...)
+    //장바구니에 추가된 재료로 검색(들어온 재료 모두로 검색)
     @PostMapping("/select")
     public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesSelected(
             @RequestBody List<String> ingredients,
             @RequestParam("page") int page,
             @RequestParam("size") int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        Page<Recipe> recipePage = recipeService.searchRecipesByIngredients(ingredients, pageable);
+        Page<Recipe> recipePage = recipeService.searchAllRecipesByIngredients(ingredients, pageable);
 
         List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 

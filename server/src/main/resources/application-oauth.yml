@@ -1,0 +1,31 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 899020713207-k4fe844cb698g3gumeob6pduv9gjphui.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile,email
+          facebook:
+            clientId: 263039593012059
+            clientSecret: 5b8b9865d9a16258d86d8c98aa480a1e
+            scope: email,public_profile
+          kakao:
+            clientId: 56e58d48c39202a03b231f7237682b17
+            clientSecret: PCntHXjqpO4st1JdKtW1aVV01BgyK1TP
+            clientAuthenticationMethod: post
+            authorizationGrantType: authorization_code
+            redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+            clientName: Kakao
+            # Provider 설정
+            provider:
+              kakao:
+                authorizationUri: https://kauth.kakao.com/oauth/authorize
+                tokenUri: https://kauth.kakao.com/oauth/token
+                userInfoUri: https://kapi.kakao.com/v2/user/me
+                userNameAttribute: id

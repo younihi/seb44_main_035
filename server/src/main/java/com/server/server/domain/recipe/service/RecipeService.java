@@ -14,6 +14,7 @@ import com.server.server.global.exception.BusinessLogicException;
 import com.server.server.global.exception.ExceptionCode;
 import com.server.server.global.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class RecipeService {
+    @Autowired
     private final RecipeRepository recipeRepository;
     private final UserService userService;
     private final RecommendRepository recommendRepository;
@@ -124,9 +126,14 @@ public class RecipeService {
         return recipeRepository.findByRecipeNameContainingIgnoreCase(recipeName, pageable);
     }
 
-    // 냉장고 속 재료로 검색
-    public Page<Recipe> searchRecipesByIngredients(List<String> ingredients, Pageable pageable) {
+    // 장바구니 속 재료로 검색
+    public Page<Recipe> searchAllRecipesByIngredients(List<String> ingredients, Pageable pageable) {
         return recipeRepository.findByIngredientsIn(ingredients, pageable);
+    }
+
+    //냉장고 속 재료로 검색
+    public Page<Recipe> searchRecipesByIngredients(List<String> ingredientNames, Pageable pageable) {
+        return recipeRepository.findByIngredients_IngredientNameIn(ingredientNames, pageable);
     }
 
     //전체 레시피 조회(하단 바)
