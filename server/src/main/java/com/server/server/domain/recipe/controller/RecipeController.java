@@ -10,15 +10,14 @@ import com.server.server.global.response.MultiResponseDto;
 import com.server.server.global.response.PageInfo;
 import com.server.server.global.response.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.server.server.domain.page.dto.PageDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,11 +33,13 @@ public class RecipeController {
 
 
     //레시피 등록
-    @PostMapping("/create")
-    public ResponseEntity postRecipe(@RequestBody RecipeDto.Post requestBody) {
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity postRecipe(@RequestPart(value = "recipeImage", required = false) MultipartFile recipeImage,
+                                     @RequestPart(value = "cookStepImage", required = false) List<MultipartFile> cookStepImage,
+                                     @RequestPart(value = "recipe") RecipeDto.Post requestBody) {
         List<Ingredient> ingredients = ingredientMapper.PostRecipeToIngredients(requestBody.getIngredients());
         Recipe recipe = recipeMapper.postToRecipe(requestBody, ingredients);
-        Recipe savedRecipe = recipeService.createRecipe(recipe);
+        Recipe savedRecipe = recipeService.createRecipe(recipe, recipeImage, cookStepImage);
 
         return new ResponseEntity<>(new SingleResponseDto(recipeMapper.recipeToPostResponse(savedRecipe)), HttpStatus.CREATED);
     }
@@ -58,10 +59,18 @@ public class RecipeController {
     //레시피 수정
     @PatchMapping("/update/{recipe-id}")
     public ResponseEntity patchRecipe(@PathVariable("recipe-id") long recipeId,
-                                      @RequestBody RecipeDto.Patch requestBody) {
-        requestBody.setRecipeId(recipeId);
-        Recipe recipe = recipeMapper.patchToRecipe(requestBody);
-        Recipe updatedRecipe = recipeService.updateRecipe(recipe);
+                                      @RequestPart(value = "recipeImage", required = false) MultipartFile recipeImage,
+                                      @RequestPart(value = "cookStepImage", required = false) List<MultipartFile> cookStepImage,
+                                      @RequestPart(value = "recipe", required = false) RecipeDto.Patch requestBody) {
+        if (requestBody != null) {
+            requestBody.setRecipeId(recipeId);
+        }
+        else {
+            requestBody = new RecipeDto.Patch(recipeId);
+        }
+        List<Ingredient> ingredients = ingredientMapper.PostRecipeToIngredients(requestBody.getIngredients());
+        Recipe recipe = recipeMapper.patchToRecipe(requestBody, ingredients);
+        Recipe updatedRecipe = recipeService.updateRecipe(recipe, recipeImage, cookStepImage);
         return new ResponseEntity(
                 new SingleResponseDto<>(recipeMapper.recipeToResponse(updatedRecipe))
                         ,HttpStatus.OK);
@@ -79,60 +88,56 @@ public class RecipeController {
     }
 
     //레시피 제목으로 검색
-    @GetMapping("/findbyname/{recipe-name}")
+    @GetMapping("/findbyname")
     public ResponseEntity<List<RecipeDto.ListResponse>> getRecipeSearch(
-            @PathVariable("recipe-name") String recipeName,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size) {
+            @RequestParam("recipe-name") String recipeName,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Recipe> recipePage = recipeService.searchRecipesByName(recipeName, pageable);
 
         List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 
-        return ResponseEntity.ok()
-                .body(responseList);
+        return new ResponseEntity(new MultiResponseDto<>(responseList, recipePage),HttpStatus.OK );
     }
 
     //냉장고 속 재료로 검색(하나 이상 포함되면 검색)
-    @PostMapping("/find/main")
+    @GetMapping("/find/main")
     public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesMain(
-            @RequestBody List<String> ingredients,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size) {
+            @RequestParam List<String> ingredients,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Recipe> recipePage = recipeService.searchRecipesByIngredients(ingredients, pageable);
-
         List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 
-        return ResponseEntity.ok()
-                .body(responseList);
+        return new ResponseEntity(new MultiResponseDto<>(responseList, recipePage),HttpStatus.OK );
     }
 
     //장바구니에 추가된 재료로 검색(들어온 재료 모두로 검색)
-    @PostMapping("/select")
+    @GetMapping("/select")
     public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesSelected(
-            @RequestBody List<String> ingredients,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size) {
+            @RequestParam List<String> ingredients,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Recipe> recipePage = recipeService.searchAllRecipesByIngredients(ingredients, pageable);
-
         List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 
-        return ResponseEntity.ok()
-                .body(responseList);
+        return new ResponseEntity(new MultiResponseDto<>(responseList, recipePage),HttpStatus.OK );
     }
 
     //레시피 목록 조회(하단 바 클릭)
     @GetMapping("/find/underbar")
-    public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesUnderBar(@RequestParam("page") int page, @RequestParam("size") int size) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public ResponseEntity<List<RecipeDto.ListResponse>> getRecipesUnderBar(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("recommendCount").descending());
         Page<Recipe> recipePage = recipeService.getAllRecipes(pageable);
 
         List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
 
-        return ResponseEntity.ok()
-                .body(responseList);
+        return new ResponseEntity(new MultiResponseDto<>(responseList, recipePage),HttpStatus.OK );
     }
 
     //레시피 삭제

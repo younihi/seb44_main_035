@@ -22,23 +22,29 @@ public interface RecipeMapper {
         Recipe recipe = new Recipe();
         recipe.setRecipeName(post.getRecipeName());
         recipe.setRecipeIntro(post.getRecipeIntro());
-        recipe.setRecipeImage(post.getRecipeImage());
         if ( recipe.getCookStepContent() != null ) {
             List<String> list = post.getCookStepContent();
             if ( list != null ) {
                 recipe.getCookStepContent().addAll( list );
             }
         }
-        if ( recipe.getCookStepImage() != null ) {
-            List<String> list1 = post.getCookStepImage();
-            if ( list1 != null ) {
-                recipe.getCookStepImage().addAll( list1 );
+        recipe.setIngredients(ingredients);
+        return recipe;
+    }
+    default Recipe patchToRecipe(RecipeDto.Patch patch, List<Ingredient> ingredients) {
+        Recipe recipe = new Recipe();
+        recipe.setRecipeId(patch.getRecipeId());
+        recipe.setRecipeName(patch.getRecipeName());
+        recipe.setRecipeIntro(patch.getRecipeIntro());
+        if ( recipe.getCookStepContent().size() == 0 ) {
+            List<String> list = patch.getCookStepContent();
+            if ( list != null ) {
+                recipe.getCookStepContent().addAll( list );
             }
         }
         recipe.setIngredients(ingredients);
         return recipe;
     }
-    Recipe patchToRecipe(RecipeDto.Patch patch);
     default RecipeDto.Response recipeToResponse(Recipe recipe) {
         if ( recipe == null ) {
             return null;
