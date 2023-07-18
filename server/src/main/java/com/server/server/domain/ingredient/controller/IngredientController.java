@@ -53,9 +53,10 @@ private final IngredientMapper mapper;
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{ingre-id}") //해당 재료 삭제
-    public ResponseEntity deleteIngredient(@PathVariable("ingre-id") long ingredientId) {//재료 삭제
-        ingredientService.deleteIngredient(ingredientId);
+    @DeleteMapping("/delete/{ingre-id}/{user-id}") //해당 재료 삭제
+    public ResponseEntity deleteIngredient(@PathVariable("ingre-id") long ingredientId,
+                                           @PathVariable("user-id") long userId) {//재료 삭제
+        ingredientService.deleteIngredient(ingredientId, userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

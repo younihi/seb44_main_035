@@ -30,17 +30,22 @@ public class IngredientService {
     @Transactional
     public Ingredient addIngredient(Ingredient ingredient, long userId){
         Ingredient findIngredient = findVerifiedIngredient(ingredient.getIngredientName());
+        Ingredient userIngredient = new Ingredient(findIngredient.getIngredientName());
         User user = userService.findUser(userId);
-        user.addIngredient(findIngredient);
+        user.addIngredient(userIngredient);
 
-        return ingredientRepository.save(findIngredient);
+        return ingredientRepository.save(userIngredient);
     }
     public List<Ingredient> saveAll(List<Ingredient> ingredients) {
         return ingredientRepository.saveAll(ingredients);
     }
     @Transactional
-    public void deleteIngredient(long ingredientId) {
-        ingredientRepository.delete(findIngredient(ingredientId));
+    public void deleteIngredient(long ingredientId, long userId) {
+        User user = userService.findUser(userId);
+        Ingredient ingredient = findIngredient(ingredientId);
+        user.removeIngredient(ingredient);
+
+        ingredientRepository.delete(ingredient);
     }
 
     @Transactional
@@ -67,7 +72,7 @@ public class IngredientService {
 
     public Page<Ingredient> findUserIngredient(long userId, int page, int size) {
         User findUser = userService.findUser(userId);
-        Pageable pageable = PageRequest.of(page, size,Sort.by("ingredientId").descending());
+        Pageable pageable = PageRequest.of(page, size,Sort.by("ingredientId"));
         Page<Ingredient> ingredients = ingredientRepository.findAllByUser(findUser, pageable);
         return ingredients;
     }

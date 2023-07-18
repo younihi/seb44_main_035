@@ -58,4 +58,11 @@ public class User {
         this.commentList.add(comment);
         comment.setUser(this);
     }
+
+    public void removeIngredient(Ingredient ingredient) {
+        this.ingredientList.remove(ingredient);
+        if (ingredient.getUser() != this) {
+            ingredient.setUser(this);
+        }
+    }
 }

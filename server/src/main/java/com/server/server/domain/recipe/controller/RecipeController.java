@@ -7,7 +7,6 @@ import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.domain.recipe.mapper.RecipeMapper;
 import com.server.server.domain.recipe.service.RecipeService;
 import com.server.server.global.response.MultiResponseDto;
-import com.server.server.global.response.PageInfo;
 import com.server.server.global.response.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
@@ -16,11 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.server.server.domain.page.dto.PageDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/recipes")
