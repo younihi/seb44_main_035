@@ -7,7 +7,6 @@ import com.server.server.domain.recipe.entity.Recipe;
 import com.server.server.domain.recipe.mapper.RecipeMapper;
 import com.server.server.domain.recipe.service.RecipeService;
 import com.server.server.global.response.MultiResponseDto;
-import com.server.server.global.response.PageInfo;
 import com.server.server.global.response.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
@@ -16,11 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.server.server.domain.page.dto.PageDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/recipes")
@@ -33,13 +30,14 @@ public class RecipeController {
 
 
     //레시피 등록
-    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping("/create/{user-id}")
     public ResponseEntity postRecipe(@RequestPart(value = "recipeImage", required = false) MultipartFile recipeImage,
                                      @RequestPart(value = "cookStepImage", required = false) List<MultipartFile> cookStepImage,
-                                     @RequestPart(value = "recipe") RecipeDto.Post requestBody) {
+                                     @RequestPart(value = "recipe") RecipeDto.Post requestBody,
+                                     @PathVariable("user-id") long userId) {
         List<Ingredient> ingredients = ingredientMapper.PostRecipeToIngredients(requestBody.getIngredients());
         Recipe recipe = recipeMapper.postToRecipe(requestBody, ingredients);
-        Recipe savedRecipe = recipeService.createRecipe(recipe, recipeImage, cookStepImage);
+        Recipe savedRecipe = recipeService.createRecipe(recipe, recipeImage, cookStepImage, userId);
 
         return new ResponseEntity<>(new SingleResponseDto(recipeMapper.recipeToPostResponse(savedRecipe)), HttpStatus.CREATED);
     }

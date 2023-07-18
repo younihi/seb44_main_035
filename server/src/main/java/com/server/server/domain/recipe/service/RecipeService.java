@@ -43,12 +43,14 @@ public class RecipeService {
 
 
 
-    public Recipe createRecipe(Recipe recipe, MultipartFile recipeImage, List<MultipartFile> cookStepImage) {
+    public Recipe createRecipe(Recipe recipe, MultipartFile recipeImage, List<MultipartFile> cookStepImage, long userId) {
+        User user = userService.findUser(userId);
         List<Ingredient> ingredients = ingredientService.saveAll(recipe.getIngredients());
         for (Ingredient ingredient : recipe.getIngredients()) {
             ingredient.setRecipe(recipe);
         }
         recipe.setIngredients(ingredients);
+        user.addRecipe(recipe);
         uploadImage(recipe, recipeImage, cookStepImage);
         return recipeRepository.save(recipe);
     }
