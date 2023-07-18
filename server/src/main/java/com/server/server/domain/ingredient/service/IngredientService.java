@@ -58,9 +58,13 @@ public class IngredientService {
                 new BusinessLogicException(ExceptionCode.INGREDIENT_NOT_FOUND));
     }
     public Ingredient findVerifiedIngredient(String ingredientName){
-        Optional<Ingredient> ingredient = ingredientRepository.findByIngredientName(ingredientName);
-        return  ingredient.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.INGREDIENT_NOT_FOUND));
+        try {
+            List<Ingredient> ingredients = ingredientRepository.findByIngredientName(ingredientName);
+            Ingredient ingredient = ingredients.get(0);
+            return ingredient;
+        } catch (Exception e) {
+            throw new BusinessLogicException(ExceptionCode.INGREDIENT_NOT_FOUND);
+        }
     }
 //    @Transactional(readOnly = true) //트랜잭션 범위는 유지 /  기능을 조회함으로써 조회속도 개선
 //    public List<IngredientDto.Response> findIngredients(){

@@ -65,4 +65,9 @@ public class User {
             ingredient.setUser(this);
         }
     }
+
+    public void addRecipe(Recipe recipe) {
+        this.recipeList.add(recipe);
+        recipe.setUser(this);
+    }
 }

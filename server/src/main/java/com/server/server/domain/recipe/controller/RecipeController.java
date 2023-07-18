@@ -30,13 +30,14 @@ public class RecipeController {
 
 
     //레시피 등록
-    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping("/create/{user-id}")
     public ResponseEntity postRecipe(@RequestPart(value = "recipeImage", required = false) MultipartFile recipeImage,
                                      @RequestPart(value = "cookStepImage", required = false) List<MultipartFile> cookStepImage,
-                                     @RequestPart(value = "recipe") RecipeDto.Post requestBody) {
+                                     @RequestPart(value = "recipe") RecipeDto.Post requestBody,
+                                     @PathVariable("user-id") long userId) {
         List<Ingredient> ingredients = ingredientMapper.PostRecipeToIngredients(requestBody.getIngredients());
         Recipe recipe = recipeMapper.postToRecipe(requestBody, ingredients);
-        Recipe savedRecipe = recipeService.createRecipe(recipe, recipeImage, cookStepImage);
+        Recipe savedRecipe = recipeService.createRecipe(recipe, recipeImage, cookStepImage, userId);
 
         return new ResponseEntity<>(new SingleResponseDto(recipeMapper.recipeToPostResponse(savedRecipe)), HttpStatus.CREATED);
     }
