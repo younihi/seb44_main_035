@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="799e648b-93cd-4d0b-8ed6-7c00b5796052" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/dto/SingleResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/utils/CustomBeanUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="799e648b-93cd-4d0b-8ed6-7c00b5796052" name="Changes" comment="fix: 레시피 상세 조회에 재료목록 포함">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/dto/CommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/dto/CommentDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/entity/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/mapper/CommentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/repository/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/service/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/exception/ExceptionCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/exception/ExceptionCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/controller/RecipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/entity/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/service/RecipeService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,24 +40,32 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feat/search" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2SVWzz7Hy91Yi5PJD8M426tQPcM" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/jiyoon/Desktop/mainProject_code/seb44_main_035"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/YoungSik/seb39_main_004&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.server.server.global.utils" />
@@ -100,6 +100,37 @@
       <option name="presentableId" value="Default" />
       <updated>1689232494976</updated>
     </task>
+    <task id="LOCAL-00001" summary="fix: 레시피 상세 조회에 댓글목록 포함">
+      <created>1689489748868</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1689489748868</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix: 레시피 상세 조회에 재료목록 포함">
+      <created>1689514846998</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1689514846998</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: 레시피 상세 조회에 댓글목록 포함" />
+    <MESSAGE value="fix: 레시피 상세 조회에 재료목록 포함" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 레시피 상세 조회에 재료목록 포함" />
   </component>
 </project>

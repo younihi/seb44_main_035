@@ -17,11 +17,9 @@ public class RecipeDto {
     @AllArgsConstructor
     public static class Post {
         private String recipeName;
-        private String recipeImage;
         private String recipeIntro;
         private List<IngredientDto.PostRecipe> ingredients;
         private List<String> cookStepContent;
-        private List<String> cookStepImage;
     }
     @Getter
     @Setter
@@ -30,10 +28,13 @@ public class RecipeDto {
     public static class Patch {
         private long recipeId;
         private String recipeName;
-        private String recipeImage;
         private String recipeIntro;
+        private List<IngredientDto.PostRecipe> ingredients;
         private List<String> cookStepContent;
-        private List<String> cookStepImage;
+
+        public Patch(long recipeId) {
+            this.recipeId = recipeId;
+        }
     }
     @Getter
     @Setter

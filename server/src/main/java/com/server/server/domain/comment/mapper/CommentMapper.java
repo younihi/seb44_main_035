@@ -18,6 +18,7 @@ public interface CommentMapper {
         response.setCommentId(comment.getCommentId());
         response.setRecipeId(comment.getRecipe().getRecipeId());
         response.setUserId(comment.getUser().getUserId());
+//        response.setUserName(comment.getUser().getName());
         response.setCommentContent(comment.getCommentContent());
         response.setCreatedAt(comment.getCreatedAt());
         response.setModifiedAt(comment.getModifiedAt());

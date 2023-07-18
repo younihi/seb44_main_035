@@ -83,9 +83,11 @@ public class User {
         this.commentList.add(comment);
         comment.setUser(this);
     }
+
     public void setUserid(Long userId) {
         this.userId = userId;
     }
+  
     public void removeIngredient(Ingredient ingredient) {
         this.ingredientList.remove(ingredient);
         if (ingredient.getUser() != this) {

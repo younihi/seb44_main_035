@@ -23,13 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.server.server.domain.user.dto.SignupForm;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RequiredArgsConstructor
 @RestController
@@ -39,20 +37,17 @@ public class UserController {
     private final UserService userService;
     private final RecipeMapper recipeMapper;
     private final JwtTokenProvider jwtTokenProvider;
-
     private final TemporaryTokenService temporaryTokenService;
 
     @GetMapping("/temper")
     public ResponseEntity<String> getTemporaryToken() {
         String temporaryToken = temporaryTokenService.issueTemporaryToken();
         return ResponseEntity.ok(temporaryToken);
-
     }
-
+  
     @PostMapping("/register")
     public ResponseEntity postUser(@RequestBody UserDto.Post requestBody) {
         User user = userService.createUser(userMapper.postToUser(requestBody));
-
         return new ResponseEntity(new SingleResponseDto<>(userMapper.userToResponse(user)), HttpStatus.OK);
     }
 
@@ -89,26 +84,6 @@ public class UserController {
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Recipe> recipePage = userService.findUserCommentRecipe(userId, pageable);
         List<RecipeDto.ListResponse> responseList = recipeMapper.recipesToResponseList(recipePage.getContent());
-
         return new ResponseEntity(new MultiResponseDto<>(responseList, recipePage), HttpStatus.OK);
-/*
-    //회원 로그인 부분
-    @PostMapping("/login")
-    public ResponseEntity<String> loginSuccess(@RequestBody Map<String, String> loginForm) {
-        String token = service.login(loginForm.get("username"), loginForm.get("password"));
-        return ResponseEntity.ok(token);
-    }
-
-    @PostMapping("/signup")
-    public Long signup(@RequestBody SignupForm signupForm) {
-        return service.signup(signupForm);
-    }
-
-    @GetMapping("/signup/check/{email}/exists")
-    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email) {
-        return ResponseEntity.ok(service.checkEmailExists(email));
-    }
-*/
-
     }
 }

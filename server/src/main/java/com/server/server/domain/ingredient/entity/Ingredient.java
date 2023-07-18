@@ -27,4 +27,8 @@ public class Ingredient {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Ingredient(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
 }
