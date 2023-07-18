@@ -1,6 +1,9 @@
 package com.server.server.domain.user.service;
 
 import com.server.server.domain.user.dto.SignupForm;
+import com.server.server.domain.comment.entity.Comment;
+import com.server.server.domain.recipe.entity.Recipe;
+import com.server.server.domain.recommend.entity.Recommend;
 import com.server.server.domain.user.entity.User;
 import com.server.server.domain.user.repository.UserRepository;
 import com.server.server.global.exception.BusinessLogicException;
@@ -11,10 +14,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -85,6 +93,50 @@ public class UserService {
 
     public String generateTemporaryUserId() {
         return UUID.randomUUID().toString();
+    }
+
+    public Page<Recipe> findUserRecommendRecipe(long userId, Pageable pageable) {
+        User user = findUser(userId);
+        List<Recipe> recipeList = new ArrayList<>();
+
+        for (Recommend recommend : user.getRecommendList()) {
+            recipeList.add(recommend.getRecipe());
+        }
+        return convertToPage(recipeList, pageable);
+    }
+    public Page<Recipe> findUserRecipe(long userId, Pageable pageable) {
+        User user = findUser(userId);
+        List<Recipe> recipeList = new ArrayList<>();
+
+        for (Recipe recipe : user.getRecipeList()) {
+            recipeList.add(recipe);
+        }
+        return convertToPage(recipeList, pageable);
+    }
+    public Page<Recipe> findUserCommentRecipe(long userId, Pageable pageable) {
+        User user = findUser(userId);
+        List<Recipe> recipeList = new ArrayList<>();
+
+        for (Comment comment : user.getCommentList()) {
+            recipeList.add(comment.getRecipe());
+        }
+        return convertToPage(recipeList, pageable);
+    }
+    public Page<Recipe> convertToPage(List<Recipe> recipeList, Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<Recipe> pagedRecipes;
+
+        if (recipeList.size() < startItem) {
+            pagedRecipes = new ArrayList<>();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, recipeList.size());
+            pagedRecipes = recipeList.subList(startItem, toIndex);
+        }
+
+        return new PageImpl<>(pagedRecipes, pageable, recipeList.size());
     }
 
 

@@ -86,4 +86,15 @@ public class User {
     public void setUserid(Long userId) {
         this.userId = userId;
     }
+    public void removeIngredient(Ingredient ingredient) {
+        this.ingredientList.remove(ingredient);
+        if (ingredient.getUser() != this) {
+            ingredient.setUser(this);
+        }
+    }
+
+    public void addRecipe(Recipe recipe) {
+        this.recipeList.add(recipe);
+        recipe.setUser(this);
+    }
 }
