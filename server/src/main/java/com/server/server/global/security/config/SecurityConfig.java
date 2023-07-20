@@ -46,15 +46,12 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
-
                 .authorizeRequests()
                 .antMatchers ("/api/**", "/login/**", "/oauth2/**").permitAll ()
                 .and()
-
                 .oauth2Login()
                 .authorizationEndpoint().baseUri("/oauth2/authorize")
                 .authorizationRequestRepository(cookieOAuth2AuthorizationRequestRepository())

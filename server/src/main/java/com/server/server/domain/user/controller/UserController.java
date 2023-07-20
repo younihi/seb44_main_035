@@ -41,7 +41,17 @@ public class UserController {
 
     @GetMapping("/temper")
     public ResponseEntity<String> getTemporaryToken() {
+        // 랜덤한 이메일 생성
+        String randomEmail = EmailGenerator.generateRandomEmail();
+
+        // 생성된 이메일로 유저를 생성
+        UserDto.Post requestBody = new UserDto.Post();
+        requestBody.setEmail(randomEmail);
+        User user = userService.createUser(userMapper.postToUser(requestBody));
+
+        // 임시 토큰 생성
         String temporaryToken = temporaryTokenService.issueTemporaryToken();
+
         return ResponseEntity.ok(temporaryToken);
     }
   
@@ -87,3 +97,4 @@ public class UserController {
         return new ResponseEntity(new MultiResponseDto<>(responseList, recipePage), HttpStatus.OK);
     }
 }
+

@@ -15,7 +15,7 @@ public class TemporaryTokenService {
     }
 
     public String issueTemporaryToken() {
-        String temporaryUserId = userService.generateTemporaryUserId();
+
         // 임시 토큰 생성
         String temporaryToken = jwtTokenProvider.generateTemporaryToken();
 

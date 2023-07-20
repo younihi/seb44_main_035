@@ -85,60 +85,16 @@ public class UserService {
         return optionalUser.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
-    public User saveUser(Long userid) {
-        User user = new User();
-        user.setUserid(userid);
-
-
+    public User saveUser(User user) {
         return repository.save(user);
     }
 
-    public String generateTemporaryUserId() {
-        return UUID.randomUUID().toString();
-    }
+    public User generateTemporaryUserId(User user) {
+        // User 객체 생성 및 저장
+        Long newUserId = user.getUserId();
+        user.setUserId(newUserId);
 
-    public Page<Recipe> findUserRecommendRecipe(long userId, Pageable pageable) {
-        User user = findUser(userId);
-        List<Recipe> recipeList = new ArrayList<>();
-
-        for (Recommend recommend : user.getRecommendList()) {
-            recipeList.add(recommend.getRecipe());
-        }
-        return convertToPage(recipeList, pageable);
-    }
-    public Page<Recipe> findUserRecipe(long userId, Pageable pageable) {
-        User user = findUser(userId);
-        List<Recipe> recipeList = new ArrayList<>();
-
-        for (Recipe recipe : user.getRecipeList()) {
-            recipeList.add(recipe);
-        }
-        return convertToPage(recipeList, pageable);
-    }
-    public Page<Recipe> findUserCommentRecipe(long userId, Pageable pageable) {
-        User user = findUser(userId);
-        List<Recipe> recipeList = new ArrayList<>();
-
-        for (Comment comment : user.getCommentList()) {
-            recipeList.add(comment.getRecipe());
-        }
-        return convertToPage(recipeList, pageable);
-    }
-    public Page<Recipe> convertToPage(List<Recipe> recipeList, Pageable pageable) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-
-        List<Recipe> pagedRecipes;
-
-        if (recipeList.size() < startItem) {
-            pagedRecipes = new ArrayList<>();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, recipeList.size());
-            pagedRecipes = recipeList.subList(startItem, toIndex);
-        }
-
-        return new PageImpl<>(pagedRecipes, pageable, recipeList.size());
+        return repository.save(user);
     }
 
 
