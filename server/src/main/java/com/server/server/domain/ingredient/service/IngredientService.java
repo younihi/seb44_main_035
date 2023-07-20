@@ -29,7 +29,7 @@ public class IngredientService {
 
     @Transactional
     public Ingredient addIngredient(Ingredient ingredient, long userId){
-        Ingredient findIngredient = findVerifiedIngredient(ingredient.getIngredientName());
+        Ingredient findIngredient = findVerifiedIngredient(ingredient.getIngredientName(), userId);
         Ingredient userIngredient = new Ingredient(findIngredient.getIngredientName());
         User user = userService.findUser(userId);
         user.addIngredient(userIngredient);
@@ -57,23 +57,34 @@ public class IngredientService {
         return  ingredient.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.INGREDIENT_NOT_FOUND));
     }
-    public Ingredient findVerifiedIngredient(String ingredientName){
+    public Ingredient findVerifiedIngredient(String ingredientName, long userId){
         try {
             List<Ingredient> ingredients = ingredientRepository.findByIngredientName(ingredientName);
             Ingredient ingredient = ingredients.get(0);
+            verifyExistIngredient(ingredient, userId);
             return ingredient;
+        } catch (BusinessLogicException e) {
+            throw new BusinessLogicException(ExceptionCode.INGREDIENT_EXISTS);
         } catch (Exception e) {
             throw new BusinessLogicException(ExceptionCode.INGREDIENT_NOT_FOUND);
         }
     }
-//    @Transactional(readOnly = true) //트랜잭션 범위는 유지 /  기능을 조회함으로써 조회속도 개선
+
+    //    @Transactional(readOnly = true) //트랜잭션 범위는 유지 /  기능을 조회함으로써 조회속도 개선
 //    public List<IngredientDto.Response> findIngredients(){
 //
 //        return  ingredientRepository.findAll().stream()
 //                .map(IngredientDto.Response::new)
 //                .collect(Collectors.toList());
 //    }
-
+    public void verifyExistIngredient(Ingredient ingredient, long userId) {
+        User user = userService.findUser(userId);
+        for (Ingredient ingre : user.getIngredientList()) {
+            if (ingre.getIngredientName().equals(ingredient.getIngredientName())) {
+                throw new BusinessLogicException(ExceptionCode.INGREDIENT_EXISTS);
+            }
+        }
+    }
     public Page<Ingredient> findUserIngredient(long userId, int page, int size) {
         User findUser = userService.findUser(userId);
         Pageable pageable = PageRequest.of(page, size,Sort.by("ingredientId"));
