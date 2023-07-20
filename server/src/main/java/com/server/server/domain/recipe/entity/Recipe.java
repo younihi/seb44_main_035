@@ -69,4 +69,12 @@ public class Recipe {
         this.commentList.add(comment);
         comment.setRecipe(this);
     }
+
+    public void addCookStepImage(String image) {
+        this.cookStepImage.add(image);
+    }
+
+    public void removeCookStepImage() {
+
+    }
 }
