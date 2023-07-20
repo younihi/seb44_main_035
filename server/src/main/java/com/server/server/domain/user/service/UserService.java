@@ -85,16 +85,16 @@ public class UserService {
         return optionalUser.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
-    public User saveUser(Long userid) {
-        User user = new User();
-        user.setUserid(userid);
-
-
+    public User saveUser(User user) {
         return repository.save(user);
     }
 
-    public String generateTemporaryUserId() {
-        return UUID.randomUUID().toString();
+    public User generateTemporaryUserId(User user) {
+        // User 객체 생성 및 저장
+        Long newUserId = user.getUserId();
+        user.setUserId(newUserId);
+
+        return repository.save(user);
     }
 
     public Page<Recipe> findUserRecommendRecipe(long userId, Pageable pageable) {

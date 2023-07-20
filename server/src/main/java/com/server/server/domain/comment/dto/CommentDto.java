@@ -22,7 +22,7 @@ public class CommentDto {
     public static class Patch {
         private long commentId;
         private String commentContent;
-        }
+    }
 
     @Getter
     @Setter

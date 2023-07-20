@@ -1,5 +1,6 @@
 package com.server.server.global.security.config.jwt;
 
+import com.server.server.domain.user.Role;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -84,8 +85,9 @@ public class JwtTokenProvider {
         }
     }
     public String generateTemporaryToken() {
-        // 임시 토큰 생성
+        // Role을 guest로 설정하여 임시 토큰 생성
         return Jwts.builder()
+                .claim("auth", Role.GUEST.getKey()) // Role 정보를 클레임에 추가
                 .setExpiration(new Date(System.currentTimeMillis() + temporaryTokenExpirationMs))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();

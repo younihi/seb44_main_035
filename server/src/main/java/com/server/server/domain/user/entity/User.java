@@ -84,7 +84,7 @@ public class User {
         comment.setUser(this);
     }
 
-    public void setUserid(Long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
   
