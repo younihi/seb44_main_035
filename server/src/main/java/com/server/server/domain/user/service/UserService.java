@@ -140,6 +140,4 @@ public class UserService {
 
         return new PageImpl<>(pagedRecipes, pageable, recipeList.size());
     }
-
-
 }
