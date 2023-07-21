@@ -77,4 +77,8 @@ public class Recipe {
     public void removeCookStepImage() {
 
     }
+
+    public void removeIngredient() {
+        this.ingredients = new ArrayList<>();
+    }
 }

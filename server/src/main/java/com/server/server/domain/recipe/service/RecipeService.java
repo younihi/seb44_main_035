@@ -72,7 +72,12 @@ public class RecipeService {
         Optional.ofNullable(recipe.getRecipeIntro())
                 .ifPresent(intro -> findRecipe.setRecipeIntro(intro));
         if (recipe.getIngredients() != null) {
-            findRecipe.setIngredients(recipe.getIngredients());
+            List<Ingredient> ingredients = ingredientService.saveAll(recipe.getIngredients());
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                ingredient.setRecipe(findRecipe);
+            }
+            findRecipe.removeIngredient();
+            findRecipe.setIngredients(ingredients);
         }
         if (recipe.getCookStepContent().size() != 0) {
             findRecipe.setCookStepContent(recipe.getCookStepContent());
