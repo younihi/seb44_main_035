@@ -47,6 +47,9 @@ public class IngredientService {
 
         ingredientRepository.delete(ingredient);
     }
+    public void deleteIngredient(long ingredientId) {
+        ingredientRepository.delete(findIngredient(ingredientId));
+    }
 
     @Transactional
     public Ingredient findIngredient(long ingredientId) {
