@@ -76,6 +76,9 @@ public class RecipeService {
             for (Ingredient ingredient : recipe.getIngredients()) {
                 ingredient.setRecipe(findRecipe);
             }
+            for (Ingredient ingredient1 : findRecipe.getIngredients()) {
+                ingredient1.setRecipe(null);
+            }
             findRecipe.removeIngredient();
             findRecipe.setIngredients(ingredients);
         }
