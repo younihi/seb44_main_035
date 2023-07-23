@@ -22,3 +22,15 @@ server:
   servlet:
     encoding:
       force-response: true
+cloud:
+  aws:
+    s3:
+      bucket: my-github-actions-s3-bucket
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+jwt:
+  temporary-token-expiration-ms: 1800000
+  secret: woduddl13@@
