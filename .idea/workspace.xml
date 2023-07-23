@@ -4,48 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2aab889b-8f87-411e-bdec-f90123dd6c9a" name="Changes" comment="fix: 나머지 모든 패키지 추가, gradle 추가설정">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="799e648b-93cd-4d0b-8ed6-7c00b5796052" name="Changes" comment="fix: 레시피 상세 조회에 재료목록 포함">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/controller/CommentController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/dto/CommentDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/dto/SingleResponseDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/entity/Comment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/mapper/CommentMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/repository/CommentRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/service/CommentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/controller/IngredientController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/dto/IngredientDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/entity/Ingredient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/mapper/IngredientMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/repository/IngredientRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/service/IngredientService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/controller/RecipeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/dto/RecipeDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/entity/Recipe.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/mapper/RecipeMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/repository/RecipeRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/service/RecipeService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recommend/entity/Recommend.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recommend/repository/RecommendRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recommend/service/RecommendService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/dto/UserDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/mapper/UserMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/advice/GlobalExceptionAdvice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/audit/Auditable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/exception/BusinessLogicException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/exception/ExceptionCode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response/ErrorResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response/MultiResponseDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response/PageInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response/SingleResponseDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/utils/CustomBeanUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/utils/UriCreator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/controller/RecipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/entity/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/service/RecipeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,9 +25,6 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$/server">
-          <activation />
-        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -89,13 +50,25 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feat/search" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2SbO3Qy8bXqcCAQlk5t8Lq9fUZP" />
+  <component name="ProjectId" id="2SVWzz7Hy91Yi5PJD8M426tQPcM" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -105,46 +78,59 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/jiyoon/Desktop/mainProject/seb44_main_035/server/src/main/resources&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/YoungSik/seb39_main_004&quot;
   }
 }</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/server/src/main/resources" />
-      <recent name="$PROJECT_DIR$/server/src/main/java/com/server/server" />
-      <recent name="$PROJECT_DIR$/server/src/main/java/com/server/server/domain" />
-      <recent name="$PROJECT_DIR$/server/src/main/java/com/server/server/global" />
-      <recent name="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.server.server.global.utils" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="ServerApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.server.server.ServerApplication" />
+      <module name="server.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.server.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ServerApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2aab889b-8f87-411e-bdec-f90123dd6c9a" name="Changes" comment="" />
-      <created>1689411614819</created>
+      <changelist id="799e648b-93cd-4d0b-8ed6-7c00b5796052" name="Changes" comment="" />
+      <created>1689232494976</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1689411614819</updated>
+      <updated>1689232494976</updated>
     </task>
-    <task id="LOCAL-00001" summary="fix: 새로운 설정">
-      <created>1689927905586</created>
+    <task id="LOCAL-00001" summary="fix: 레시피 상세 조회에 댓글목록 포함">
+      <created>1689489748868</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1689927905586</updated>
+      <updated>1689489748868</updated>
     </task>
-    <task id="LOCAL-00002" summary="fix: 나머지 모든 패키지 추가, gradle 추가설정">
-      <created>1690068398173</created>
+    <task id="LOCAL-00002" summary="fix: 레시피 상세 조회에 재료목록 포함">
+      <created>1689514846998</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1690068398174</updated>
+      <updated>1689514846998</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
@@ -161,9 +147,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: 새로운 설정" />
-    <MESSAGE value="fix: comment,recipe,추가 gradle설정" />
-    <MESSAGE value="fix: 나머지 모든 패키지 추가, gradle 추가설정" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 나머지 모든 패키지 추가, gradle 추가설정" />
+    <MESSAGE value="fix: 레시피 상세 조회에 댓글목록 포함" />
+    <MESSAGE value="fix: 레시피 상세 조회에 재료목록 포함" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 레시피 상세 조회에 재료목록 포함" />
   </component>
 </project>

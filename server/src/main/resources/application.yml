@@ -1,8 +1,13 @@
 spring:
+  profiles:
+    include: oauth
   h2:
     console:
       enabled: true
       path: /h2
+      settings:
+        web-allow-others: true
+
   datasource:
     url: jdbc:h2:mem:test
   jpa:
@@ -12,6 +17,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
 logging:
   level:
     org:
@@ -25,7 +35,10 @@ server:
 cloud:
   aws:
     s3:
-      bucket: my-github-actions-s3-bucket
+      bucket: my-github-actions-s3-burket
+    credentials:
+      access-key: AKIATYK3GYSCFHHJCTAY
+      secret-key: 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
     region:
       static: ap-northeast-2
       auto: false
