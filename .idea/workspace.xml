@@ -4,12 +4,67 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="799e648b-93cd-4d0b-8ed6-7c00b5796052" name="Changes" comment="fix: 레시피 상세 조회에 재료목록 포함">
+    <list default="true" id="799e648b-93cd-4d0b-8ed6-7c00b5796052" name="Changes" comment="fix : 전체 삭제3">
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/controller/CommentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/dto/CommentDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/dto/SingleResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/entity/Comment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/mapper/CommentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/repository/CommentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/comment/service/CommentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/controller/IngredientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/dto/IngredientDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/entity/Ingredient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/mapper/IngredientMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/repository/IngredientRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/ingredient/service/IngredientService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/controller/RecipeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/dto/RecipeDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/entity/Recipe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/mapper/RecipeMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/repository/RecipeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/service/RecipeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recommend/entity/Recommend.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recommend/repository/RecommendRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recommend/service/RecommendService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/controller/EmailGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/dto/SignupForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/dto/UserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/service/TemporaryTokenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/user/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/advice/GlobalExceptionAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/audit/Auditable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/enums/ProfileImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/exception/BusinessLogicException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/exception/ExceptionCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response/ErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response/MultiResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response/PageInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/response/SingleResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/s3/FileUploadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/s3/S3Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/s3/S3Uploader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/jwt/JwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/jwt/JwtToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/jwt/JwtTokenProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/oauth/CustomOAuth2UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/oauth/HttpCookieOAuth2AuthorizationRequestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/oauth/OAuth2AuthenticationFailureHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/oauth/OAuth2AuthenticationSuccessHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/oauth/PrincipalDetailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/oauth/dto/OAuthAttributes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/oauth/dto/SessionUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/security/config/oauth/util/CookieUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/utils/CustomBeanUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/global/utils/UriCreator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/resources/application-oauth.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/entity/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/server/server/domain/recipe/service/RecipeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,15 +131,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/YoungSik/seb39_main_004&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/jiyoon/Desktop/mainProject/seb44_main_035",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.server.server.global.utils" />
     </key>
@@ -132,7 +193,21 @@
       <option name="project" value="LOCAL" />
       <updated>1689514846998</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix : 전체 삭제2">
+      <created>1690086907248</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1690086907248</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix : 전체 삭제3">
+      <created>1690086945555</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1690086945556</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -149,6 +224,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix: 레시피 상세 조회에 댓글목록 포함" />
     <MESSAGE value="fix: 레시피 상세 조회에 재료목록 포함" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 레시피 상세 조회에 재료목록 포함" />
+    <MESSAGE value="fix : 전체 삭제2" />
+    <MESSAGE value="fix : 전체 삭제3" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix : 전체 삭제3" />
   </component>
 </project>
